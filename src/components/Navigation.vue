@@ -1,62 +1,76 @@
 <script>
+import { useAppStore } from '../stores/useAppStore'
+import { mapState, mapActions } from 'pinia'
+import { RouterLink } from 'vue-router'
+
 export default {
   name: 'Navigation',
+  components: {
+    RouterLink
+  },
   data() {
     return {
-      activeNav: ''
+      isProfileOpen: false
     }
   },
+  computed: {
+    ...mapState(useAppStore, ['isLoggedIn'])
+  },
   methods: {
-    handleNavClick(item) {
-      this.activeNav = item
+    ...mapActions(useAppStore, ['logout']),
+    toggleProfileDropdown() {
+      this.isProfileOpen = !this.isProfileOpen
+    },
+    handleLogout() {
+      this.logout()
+      this.isProfileOpen = false
+      this.$router.push('/')
     }
   }
 }
 </script>
 
 <template>
-  <nav class="w-full px-4 sm:px-6 lg:px-20 py-6 sm:py-8">
+  <nav class="w-full px-4 sm:px-6 lg:px-20 py-6 sm:py-8 bg-primary-dark">
     <div class="max-w-[1440px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="mb-2 lg:mb-4">
-        <a href="../views/HomeView.vue">
+        <RouterLink to="/">
           <img 
             src="../assets/images/logo.svg" 
             alt="SpotifyTracker Logo"
             class="mx-auto w-24 sm:w-32 lg:w-40"
             />
-        </a>
+        </RouterLink>
         </div>
-      <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 lg:gap-12 font-nav text-white text-lg sm:text-xl lg:text-2xl">
-        <button 
-          @click="handleNavClick('tracks')"
-          class="hover:text-vinyl-orange transition-colors duration-200"
-        >
-          TOP TRACKS
-        </button>
-        <button 
-          @click="handleNavClick('artists')"
-          class="hover:text-vinyl-orange transition-colors duration-200"
-        >
-          TOP ARTISTS
-        </button>
-        <button 
-          @click="handleNavClick('genres')"
-          class="hover:text-vinyl-orange transition-colors duration-200"
-        >
-          TOP GENRES
-        </button>
-        <button 
-          @click="handleNavClick('custom')"
-          class="hover:text-vinyl-orange transition-colors duration-200"
-        >
-          CUSTOM
-        </button>
-        <button 
-          @click="handleNavClick('login')"
-          class="hover:text-vinyl-orange transition-colors duration-200 ml-4 sm:ml-8"
-        >
-          LOGIN
-        </button>
+      <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 lg:gap-12 font-nav text-text-primary text-lg sm:text-xl lg:text-2xl">
+        
+        <!-- Logged Out View -->
+        <template v-if="!isLoggedIn">
+          <RouterLink 
+            to="/login"
+            class="hover:text-accent-pink transition-colors duration-200"
+          >
+            LOGIN/REGISTER
+          </RouterLink>
+        </template>
+
+        <!-- Logged In View -->
+        <template v-if="isLoggedIn">
+          <RouterLink to="/dashboard" class="hover:text-accent-pink transition-colors duration-200">DASHBOARD</RouterLink>
+          <RouterLink to="/goals" class="hover:text-accent-pink transition-colors duration-200">GOALS</RouterLink>
+          <RouterLink to="/collages" class="hover:text-accent-pink transition-colors duration-200">COLLAGES</RouterLink>
+          <div class="relative">
+            <button @click="toggleProfileDropdown" class="hover:text-accent-pink transition-colors duration-200">
+              PROFILE
+            </button>
+            <div v-if="isProfileOpen" class="absolute right-0 mt-2 w-48 bg-primary-light rounded-md shadow-lg py-1 z-50">
+              <RouterLink to="/profile" class="block px-4 py-2 text-sm text-text-primary hover:bg-accent-purple">View Profile</RouterLink>
+              <button @click="handleLogout" class="block w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-accent-purple">
+                Logout
+              </button>
+            </div>
+          </div>
+        </template>
       </div>
     </div>
   </nav>
