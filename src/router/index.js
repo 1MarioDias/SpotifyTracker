@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AuthView from '../views/AuthView.vue'
+import DashboardView from '../views/DashboardView.vue'
 
-const Dashboard = { template: '<div class="text-white text-center p-8">Dashboard Page</div>' }
 const Goals = { template: '<div class="text-white text-center p-8">Goals Page</div>' }
 const Collages = { template: '<div class="text-white text-center p-8">Collages Page</div>' }
 const Profile = { template: '<div class="text-white text-center p-8">Profile Page</div>' }
@@ -24,7 +24,7 @@ const router = createRouter({
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: Dashboard
+      component: DashboardView
     },
     {
       path: '/goals',
