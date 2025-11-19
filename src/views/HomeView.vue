@@ -5,13 +5,9 @@ import LoginButton from '../components/LoginButton.vue'
 export default {
   name: 'HomeView',
   components: {
-    Navigation,
     LoginButton,
   },
   methods: {
-    handleLogin() {
-      console.log('Login clicked')
-    }
   }
 }
 </script>
@@ -29,11 +25,11 @@ export default {
             />
         </div>
         <p class="font-rough text-white text-xl sm:text-2xl lg:text-4xl max-w-4xl mx-auto px-4">
-            Discover Your Spotify Stats Like Never Before
+            Track Your Listening Stats Like Never Before
         </p>
         </div>
     </section>
-    <LoginButton @login-click="handleLogin" />
+    <LoginButton class="mx-auto mb-12" />
     <section class="relative w-full px-4 py-12 lg:py-20">
         <div class="max-w-[1440px] mx-auto flex flex-col items-center">
         <!-- Vinyl Record -->
@@ -58,8 +54,6 @@ export default {
         </h2>
         </div>
     </section>
-    <AlbumGrid />
-    <BackgroundSections />
   </div>
 </template>
 

@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import AuthView from '../views/AuthView.vue'
 
 const Dashboard = { template: '<div class="text-white text-center p-8">Dashboard Page</div>' }
 const Goals = { template: '<div class="text-white text-center p-8">Goals Page</div>' }
 const Collages = { template: '<div class="text-white text-center p-8">Collages Page</div>' }
 const Profile = { template: '<div class="text-white text-center p-8">Profile Page</div>' }
-const Login = { template: '<div class="text-white text-center p-8">Login Page</div>' }
 
 
 const router = createRouter({
@@ -19,7 +19,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: AuthView
     },
     {
       path: '/dashboard',

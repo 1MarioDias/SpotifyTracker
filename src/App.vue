@@ -1,16 +1,24 @@
+// filepath: c:\Users\User\Documents\LTSIW\Ano3\PW1\SpotifyTracker\src\App.vue
 <script>
-import HomeView from './views/HomeView.vue'
+import { RouterView } from 'vue-router'
+import Navigation from './components/Navigation.vue'
 
 export default {
   name: 'App',
   components: {
-    HomeView
+    RouterView,
+    Navigation
   }
 }
 </script>
 
 <template>
-  <HomeView />
+  <div class="min-h-screen bg-primary-dark overflow-x-hidden font-body">
+    <Navigation />
+    <main>
+      <RouterView />
+    </main>
+  </div>
 </template>
 
 <style scoped></style>
