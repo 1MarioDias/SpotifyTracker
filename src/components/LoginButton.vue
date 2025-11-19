@@ -1,9 +1,14 @@
 <script>
+import { RouterView } from 'vue-router'
+
 export default {
   name: 'LoginButton',
+  components: {
+    RouterView
+  },
   methods: {
     handleLogin() {
-      this.$emit('login-click')
+      this.$router.push('/login');
     }
   }
 }
