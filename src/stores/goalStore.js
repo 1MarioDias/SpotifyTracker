@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
 import goalService from '../services/goalService';
-import api from '../services/api';
-import { useAppStore } from './useAppStore';
+import externalAPIs from '../services/externalAPIs';
+import userService from '../services/userService';
+import { useUserStore } from './userStore';
 
 export const useGoalStore = defineStore('goal', {
   state: () => ({
@@ -78,7 +79,7 @@ export const useGoalStore = defineStore('goal', {
     },
 
     async checkGoalProgress(goal) {
-      const appStore = useAppStore();
+      const appStore = useUserStore();
       if (!appStore.user) return;
 
       this.isLoading = true;
@@ -88,11 +89,11 @@ export const useGoalStore = defineStore('goal', {
       try {
         // tracking do progresso em relação a oubir tracks de x artista já está automatizado
         if (goal.type === 'listen_tracks' && goal.meta.artistName) {
-          const artistInfo = await api.getArtistInfo(appStore.user.lastfm_username, goal.meta.artistName);
+          const artistInfo = await externalAPIs.getArtistInfo(appStore.user.lastfm_username, goal.meta.artistName);
           newProgress = parseInt(artistInfo.userplaycount || 0, 10);
         } else if (goal.type === 'earn_badges') {
           // checka as crowns previamente fetched do user
-          const user = await api.loginUser({ email: appStore.user.email, password: appStore.user.password });
+          const user = await userService.loginUser({ email: appStore.user.email, password: appStore.user.password });
           appStore.login(user);
           newProgress = user.crowns.length;
         } else {

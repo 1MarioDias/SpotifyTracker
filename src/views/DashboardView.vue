@@ -1,6 +1,6 @@
 <script>
 import { mapState } from 'pinia';
-import { useAppStore } from '../stores/useAppStore';
+import { useUserStore } from '../stores/userStore';
 import RecentTracks from '../components/RecentTracks.vue';
 import TopArtists from '../components/TopArtists.vue';
 import CrownsRun from '../components/CrownsRun.vue';
@@ -18,7 +18,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(useAppStore, ['user']),
+    ...mapState(useUserStore, ['user']),
     welcomeMessage() {
       return this.user ? `Welcome, ${this.user.username}!` : 'Dashboard';
     }

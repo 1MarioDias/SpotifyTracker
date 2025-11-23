@@ -76,6 +76,13 @@
         "Ken Carson",
         "A$AP Rocky"
       ]
+    },
+    {
+      "id": "2446",
+      "username": "teste",
+      "email": "teste@teste.com",
+      "password": "teste",
+      "lastfm_username": "D9ine"
     }
   ],
   "goals": [

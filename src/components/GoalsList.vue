@@ -1,7 +1,7 @@
 <script>
 import { mapState, mapActions } from 'pinia';
 import { useGoalStore } from '../stores/goalStore';
-import { useAppStore } from '../stores/useAppStore';
+import { useUserStore } from '../stores/userStore';
 
 export default {
   name: 'GoalsList',
@@ -11,7 +11,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(useAppStore, ['user']),
+    ...mapState(useUserStore, ['user']),
     ...mapState(useGoalStore, ['isLoading', 'error', 'activeGoals', 'completedGoals']),
     filteredGoals() {
       return this.filter === 'active' ? this.activeGoals : this.completedGoals;

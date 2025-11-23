@@ -1,5 +1,5 @@
 <script>
-import api from '../services/api';
+import externalAPIs from '../services/externalAPIs';
 
 export default {
   name: 'RecentTracks',
@@ -32,7 +32,7 @@ export default {
     async fetchRecentTracks() {
       this.isLoading = true;
       try {
-        this.tracks = await api.getRecentTracks(this.lastfmUsername);
+        this.tracks = await externalAPIs.getRecentTracks(this.lastfmUsername);
       } catch (err) {
         this.error = `Failed to fetch recent tracks: ${err.message}`;
       } finally {

@@ -1,7 +1,8 @@
 <script>
 import { mapState } from 'pinia';
-import { useAppStore } from '../stores/useAppStore';
-import api from '../services/api';
+import { useUserStore } from '../stores/userStore';
+import externalAPIs from '../services/externalAPIs';
+import userService from '../services/userService';
 import logo from '../assets/images/logo.svg';
 
 export default {
@@ -18,7 +19,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(useAppStore, ['user']),
+    ...mapState(useUserStore, ['user']),
     totalPages() {
       return Math.max(1, Math.ceil(this.userCrowns.length / this.itemsPerPage));
     },
@@ -37,8 +38,8 @@ export default {
 
       try {
         const currentUser = this.user;
-        const allUsers = await api.getAllUsers();
-        const topArtists = await api.getTopArtists(currentUser.lastfm_username, 'overall', 50); // Check top 50 artists
+        const allUsers = await userService.getAllUsers();
+        const topArtists = await externalAPIs.getTopArtists(currentUser.lastfm_username, 'overall', 50); // Check top 50 artists
 
         const crownHolders = {};
 
@@ -47,7 +48,7 @@ export default {
           let crownHolderId = null;
 
           for (const u of allUsers) {
-            const stats = await api.getArtistInfo(u.lastfm_username, artist.name);
+            const stats = await externalAPIs.getArtistInfo(u.lastfm_username, artist.name);
             const playcount = parseInt(stats.userplaycount || 0, 10);
 
             if (playcount > maxPlays) {
@@ -66,7 +67,7 @@ export default {
           const newCrowns = Object.keys(crownHolders).filter(
             artistName => crownHolders[artistName].userId === u.id
           );
-          await api.updateUser(u.id, { crowns: newCrowns });
+          await userService.updateUser(u.id, { crowns: newCrowns });
           if (u.id === currentUser.id) {
             this.userCrowns = newCrowns;
             this.currentPage = 1;

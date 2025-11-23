@@ -1,7 +1,7 @@
 <script>
 import { mapActions, mapState } from 'pinia';
 import { useGoalStore } from '../stores/goalStore';
-import { useAppStore } from '../stores/useAppStore';
+import { useUserStore } from '../stores/userStore';
 
 export default {
   name: 'GoalForm',
@@ -56,7 +56,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(useAppStore, ['user']),
+    ...mapState(useUserStore, ['user']),
     isEditMode() {
       return !!this.id;
     },

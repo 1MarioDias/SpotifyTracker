@@ -1,7 +1,7 @@
 <script>
 import { RouterView } from 'vue-router'
 import { mapState } from 'pinia'
-import { useAppStore } from '../stores/useAppStore'
+import { useUserStore } from '../stores/userStore'
 
 export default {
   name: 'LoginButton',
@@ -17,7 +17,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(useAppStore, ['isLoggedIn'])
+    ...mapState(useUserStore, ['isLoggedIn'])
   },
 }
 </script>

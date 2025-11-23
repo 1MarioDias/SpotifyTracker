@@ -1,7 +1,7 @@
 <script>
 import { mapActions } from 'pinia';
-import { useAppStore } from '../stores/useAppStore';
-import api from '../services/api';
+import { useUserStore } from '../stores/userStore';
+import userService from '../services/userService';
 
 export default {
   name: 'AuthView',
@@ -19,7 +19,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useAppStore, ['login']),
+    ...mapActions(useUserStore, ['login']),
     toggleView(isLogin) {
       this.isLoginView = isLogin;
       this.error = null;
@@ -28,7 +28,7 @@ export default {
     async handleLogin() {
       this.error = null;
       try {
-        const userData = await api.loginUser({
+        const userData = await userService.loginUser({
           email: this.form.email,
           password: this.form.password,
         });
@@ -45,7 +45,7 @@ export default {
         return;
       }
       try {
-        await api.registerUser({
+        await userService.registerUser({
           username: this.form.username,
           email: this.form.email,
           password: this.form.password,
