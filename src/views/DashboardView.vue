@@ -3,12 +3,14 @@ import { mapState } from 'pinia';
 import { useAppStore } from '../stores/useAppStore';
 import RecentTracks from '../components/RecentTracks.vue';
 import TopArtists from '../components/TopArtists.vue';
+import CrownsRun from '../components/CrownsRun.vue';
 
 export default {
   name: 'DashboardView',
   components: {
     RecentTracks,
     TopArtists,
+    CrownsRun,
   },
   data() {
     return {
@@ -45,6 +47,10 @@ export default {
 
         <div class="lg:col-span-1">
           <TopArtists :lastfm-username="user.lastfm_username" />
+        </div>
+
+        <div class="lg:col-span-1">
+          <CrownsRun />
         </div>
       </div>
       

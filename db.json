@@ -5,14 +5,77 @@
       "username": "1MarioDias",
       "email": "mario@mario.com",
       "password": "mario",
-      "lastfm_username": "nokiaAngelz2009"
+      "lastfm_username": "nokiaAngelz2009",
+      "crowns": [
+        "Bladee",
+        "Lucki",
+        "YABUJIN",
+        "Yung Lean",
+        "Dean Blunt",
+        "Deftones",
+        "elusin",
+        "REDDA",
+        "Izaya Tiji",
+        "Black Kray",
+        "Drain Gang Archive",
+        "Thaiboy Digital",
+        "Ecco2K",
+        "2heaven",
+        "Snow Strippers",
+        "fakemink",
+        "Skrillex",
+        "Homixide Gang",
+        "Misfits",
+        "Lancey Foux",
+        "Lil B",
+        "nettspend",
+        "UnoTheActivist",
+        "2hollis",
+        "Aphex Twin",
+        "SICKBOYRARI",
+        "BBY GOYARD",
+        "Arca",
+        "Team Sleep",
+        "The Hellp",
+        "Benji Blue Bills",
+        "Camille Keller",
+        "Babyfather",
+        "Basement",
+        "Glokk40Spaz",
+        "Lily Chou-Chou",
+        "Xandre",
+        "UNKI",
+        "Bogdan Raczynski",
+        "Kankan",
+        "Sematary",
+        "SAFETY TRANCE",
+        "Chris Travis",
+        "Crystal Castles"
+      ]
     },
     {
       "id": "291c",
       "username": "sofia",
       "email": "sofia@sofia.com",
       "password": "sofia",
-      "lastfm_username": "cyb3rgrl0"
+      "lastfm_username": "cyb3rgrl0",
+      "crowns": [
+        "Playboi Carti",
+        "Yeat",
+        "Lana Del Rey"
+      ]
+    },
+    {
+      "id": "925a",
+      "username": "marco",
+      "email": "marco@marco.com",
+      "password": "marco",
+      "lastfm_username": "vMarc0",
+      "crowns": [
+        "Destroy Lonely",
+        "Ken Carson",
+        "A$AP Rocky"
+      ]
     }
   ]
 }

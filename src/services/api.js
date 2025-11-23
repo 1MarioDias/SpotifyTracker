@@ -83,6 +83,35 @@ export default {
     }
   },
 
+  getAllUsers() {
+    return localApiClient.get('/users').then(res => res.data);
+  },
+
+  updateUser(userId, userData) {
+    return localApiClient.patch(`/users/${userId}`, userData);
+  },
+
+  async getArtistInfo(lastfmUsername, artistName) {
+    try {
+      const response = await axios.get(lastFmApiUrl, {
+        params: {
+          method: 'artist.getinfo',
+          artist: artistName,
+          user: lastfmUsername,
+          api_key: lastFmApiKey,
+          format: 'json'
+        }
+      });
+      if (response.data.error) {
+        return { userplaycount: 0 };
+      }
+      return response.data.artist.stats;
+    } catch (error) {
+      console.error(`Error fetching artist info for ${artistName}:`, error);
+      return { userplaycount: 0 };
+    }
+  },
+
   async getRecentTracks(lastfmUsername) {
     const response = await axios.get(lastFmApiUrl, {
       params: {
