@@ -42,15 +42,18 @@ export default {
       this.selectedPeriod = periodValue;
     },
     getArtistImage(artist) {
-      if (!artist.image || artist.image.length === 0) return '';
-      const largestImage = artist.image[artist.image.length - 1];
-      return largestImage['#text'] || '';
+      // só vai buscar a lógica ao service da api
+      if (artist.spotifyImage) {
+        return artist.spotifyImage;
+      }
+      return '';
     },
     downloadAsJPEG() {
       const element = this.$refs.captureArea;
       html2canvas(element, { 
         backgroundColor: '#1D1A23',
-        useCORS: true 
+        useCORS: true,
+        allowTaint: true
       }).then(canvas => {
         const link = document.createElement('a');
         link.download = `top-artists-${this.selectedPeriod}.jpeg`;
@@ -108,7 +111,20 @@ export default {
           :key="artist.mbid || artist.name" 
           class="relative aspect-square group"
         >
-          <img :src="getArtistImage(artist)" :alt="artist.name" class="w-full h-full object-cover rounded-md bg-primary-dark" />
+          <img 
+            v-if="getArtistImage(artist)"
+            :src="getArtistImage(artist)" 
+            :alt="artist.name" 
+            class="w-full h-full object-cover rounded-md bg-primary-dark"
+            crossorigin="anonymous"
+            @error="$event.target.style.display = 'none'"
+          />
+          <div 
+            v-else 
+            class="w-full h-full flex items-center justify-center bg-primary-dark rounded-md"
+          >
+            <span class="text-text-secondary text-sm">No Image</span>
+          </div>
           <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md">
             <div class="text-center p-2">
               <p class="font-bold text-white">{{ artist.name }}</p>
