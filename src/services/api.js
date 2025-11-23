@@ -36,12 +36,29 @@ export default {
         user: lastfmUsername,
         api_key: lastFmApiKey,
         format: 'json',
-        limit: 20 // ULTIMAS 20 TRACKS
+        limit: 35 // ULTIMAS 35 TRACKS
       }
     });
     if (response.data.error) {
       throw new Error(response.data.message);
     }
     return response.data.recenttracks.track;
+  },
+  
+  async getTopArtists(lastfmUsername, period = '7day', limit = 6) {
+    const response = await axios.get(lastFmApiUrl, {
+      params: {
+        method: 'user.gettopartists',
+        user: lastfmUsername,
+        api_key: lastFmApiKey,
+        format: 'json',
+        period: period,
+        limit: limit
+      }
+    });
+    if (response.data.error) {
+      throw new Error(response.data.message);
+    }
+    return response.data.topartists.artist;
   }
 };
