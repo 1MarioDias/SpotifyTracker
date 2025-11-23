@@ -76,6 +76,71 @@
         "Ken Carson",
         "A$AP Rocky"
       ]
+    },
+    {
+      "id": "2446",
+      "username": "teste",
+      "email": "teste@teste.com",
+      "password": "teste",
+      "lastfm_username": "D9ine"
+    }
+  ],
+  "goals": [
+    {
+      "id": "1",
+      "userId": "685c",
+      "title": "Discover 5 New Artists",
+      "description": "Find and listen to 5 artists I've never heard before this month.",
+      "type": "discover_artists",
+      "target": 5,
+      "progress": 2,
+      "deadline": "2025-12-31",
+      "status": "active",
+      "xp": 20,
+      "meta": {}
+    },
+    {
+      "id": "2",
+      "userId": "685c",
+      "title": "Listen to 200 tracks by Bladee",
+      "description": "Reach 200 total scrobbles for Bladee.",
+      "type": "listen_tracks",
+      "target": 200,
+      "progress": 200,
+      "deadline": "2026-01-15",
+      "status": "completed",
+      "xp": 25,
+      "meta": {
+        "artistName": "Bladee"
+      }
+    },
+    {
+      "id": "3",
+      "userId": "291c",
+      "title": "Earn a Crown",
+      "description": "Become the top listener for at least one artist.",
+      "type": "earn_badges",
+      "target": 1,
+      "progress": 1,
+      "deadline": "2025-12-20",
+      "status": "completed",
+      "xp": 50,
+      "meta": {}
+    },
+    {
+      "id": "df3c",
+      "title": "Listen to 250 Esdeekid's Tracks",
+      "description": "",
+      "deadline": "2025-12-12",
+      "type": "listen_tracks",
+      "target": 250,
+      "xp": 25,
+      "meta": {
+        "artistName": "esdeekid"
+      },
+      "userId": "685c",
+      "progress": 95,
+      "status": "active"
     }
   ]
 }

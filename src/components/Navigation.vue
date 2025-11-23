@@ -1,5 +1,5 @@
 <script>
-import { useAppStore } from '../stores/useAppStore'
+import { useUserStore } from '../stores/userStore'
 import { mapState, mapActions } from 'pinia'
 import { RouterLink } from 'vue-router'
 
@@ -14,10 +14,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(useAppStore, ['isLoggedIn'])
+    ...mapState(useUserStore, ['isLoggedIn'])
   },
   methods: {
-    ...mapActions(useAppStore, ['logout']),
+    ...mapActions(useUserStore, ['logout']),
     toggleProfileDropdown() {
       this.isProfileOpen = !this.isProfileOpen
     },

@@ -1,12 +1,5 @@
 import axios from 'axios';
 
-const localApiClient = axios.create({
-  baseURL: 'http://localhost:3000',
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
-
 const lastFmApiKey = import.meta.env.VITE_LASTFM_API_KEY;
 const lastFmApiUrl = 'https://ws.audioscrobbler.com/2.0/';
 
@@ -15,7 +8,6 @@ const spotifyClientSecret = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET;
 let spotifyAccessToken = null;
 let tokenExpirationTime = null;
 
-// setup das credenciais
 async function getSpotifyAccessToken() {
   if (spotifyAccessToken && tokenExpirationTime && Date.now() < tokenExpirationTime) {
     return spotifyAccessToken;
@@ -65,32 +57,6 @@ async function getSpotifyArtistImage(artistName) {
 }
 
 export default {
-  registerUser(userData) {
-    return localApiClient.post('/users', userData);
-  },
-  
-  async loginUser(credentials) {
-    const response = await localApiClient.get('/users', {
-      params: {
-        email: credentials.email,
-        password: credentials.password
-      }
-    });
-    if (response.data.length === 1) {
-      return response.data[0];
-    } else {
-      throw new Error('Invalid credentials');
-    }
-  },
-
-  getAllUsers() {
-    return localApiClient.get('/users').then(res => res.data);
-  },
-
-  updateUser(userId, userData) {
-    return localApiClient.patch(`/users/${userId}`, userData);
-  },
-
   async getArtistInfo(lastfmUsername, artistName) {
     try {
       const response = await axios.get(lastFmApiUrl, {
@@ -119,7 +85,7 @@ export default {
         user: lastfmUsername,
         api_key: lastFmApiKey,
         format: 'json',
-        limit: 35 // ULTIMAS 35 TRACKS
+        limit: 35
       }
     });
     if (response.data.error) {
@@ -143,7 +109,6 @@ export default {
       throw new Error(response.data.message);
     }
     
-    // dá fetch da imagem PELO spotify visto que o LASTFM não permite faze-lo
     const artists = response.data.topartists.artist;
     const enhancedArtists = await Promise.all(
       artists.map(async (artist) => {

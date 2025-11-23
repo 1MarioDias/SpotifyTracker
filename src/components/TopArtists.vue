@@ -1,5 +1,5 @@
 <script>
-import api from '../services/api';
+import externalAPIs from '../services/externalAPIs';
 import html2canvas from 'html2canvas';
 
 export default {
@@ -30,7 +30,7 @@ export default {
       this.isLoading = true;
       this.error = null;
       try {
-        this.artists = await api.getTopArtists(this.lastfmUsername, this.selectedPeriod);
+        this.artists = await externalAPIs.getTopArtists(this.lastfmUsername, this.selectedPeriod);
       } catch (err) {
         this.error = `Failed to fetch top artists: ${err.message}`;
         this.artists = [];
