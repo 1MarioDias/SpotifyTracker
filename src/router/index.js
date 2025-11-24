@@ -3,9 +3,9 @@ import HomeView from '../views/HomeView.vue'
 import AuthView from '../views/AuthView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import GoalsView from '../views/GoalsView.vue'
+import Profile from '../views/ProfileView.vue'
 
 const Collages = { template: '<div class="text-white text-center p-8">Collages Page</div>' }
-const Profile = { template: '<div class="text-white text-center p-8">Profile Page</div>' }
 
 
 const router = createRouter({
