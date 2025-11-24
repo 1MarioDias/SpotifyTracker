@@ -43,7 +43,7 @@ export default {
             <img 
                 src="../assets/images/cover.png" 
                 alt="Album cover" 
-                class="absolute left-0 top-1/2 w-full h-full object-cover mix-blend-difference"
+                class="absolute left-0 top-1/2 w-full h-full object-cover "
             />
             </div>
         </div>

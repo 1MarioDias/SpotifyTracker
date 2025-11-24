@@ -1,12 +1,14 @@
 <script>
 import { RouterView } from 'vue-router'
 import Navigation from './components/Navigation.vue'
+import ProfileView from './views/ProfileView.vue'
 
 export default {
   name: 'App',
   components: {
     RouterView,
-    Navigation
+    Navigation,
+    ProfileView
   }
 }
 </script>
