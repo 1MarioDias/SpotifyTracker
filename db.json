@@ -28,14 +28,12 @@
         "Misfits",
         "Lancey Foux",
         "Lil B",
-        "nettspend",
         "UnoTheActivist",
         "2hollis",
         "Aphex Twin",
         "SICKBOYRARI",
         "BBY GOYARD",
         "Arca",
-        "Team Sleep",
         "The Hellp",
         "Benji Blue Bills",
         "Camille Keller",
@@ -60,8 +58,7 @@
       "password": "sofia",
       "lastfm_username": "cyb3rgrl0",
       "crowns": [
-        "Playboi Carti",
-        "Yeat",
+        "Team Sleep",
         "Lana Del Rey"
       ]
     },
@@ -73,7 +70,6 @@
       "lastfm_username": "vMarc0",
       "crowns": [
         "Destroy Lonely",
-        "Ken Carson",
         "A$AP Rocky"
       ]
     },
@@ -82,7 +78,20 @@
       "username": "teste",
       "email": "teste@teste.com",
       "password": "teste",
-      "lastfm_username": "D9ine"
+      "lastfm_username": "D9ine",
+      "crowns": [
+        "Playboi Carti",
+        "Yeat",
+        "Ken Carson",
+        "nettspend"
+      ]
+    },
+    {
+      "id": "04c7",
+      "username": "a",
+      "email": "a@a.com",
+      "password": "a",
+      "lastfm_username": "Tobicst"
     }
   ],
   "goals": [
