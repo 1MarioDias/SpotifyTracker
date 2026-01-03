@@ -1,9 +1,13 @@
 <script>
 import externalAPIs from '../services/externalAPIs';
 import html2canvas from 'html2canvas';
+import LoadingSkeleton from './LoadingSkeleton.vue';
 
 export default {
   name: 'TopArtists',
+  components: {
+    LoadingSkeleton
+  },
   props: {
     lastfmUsername: {
       type: String,
@@ -97,8 +101,8 @@ export default {
     </div>
 
     <div ref="captureArea">
-      <div v-if="isLoading" class="text-center text-text-secondary">
-        <p>Loading top artists...</p>
+      <div v-if="isLoading">
+        <LoadingSkeleton type="artists" />
       </div>
 
       <div v-else-if="error" class="bg-red-900/50 border border-red-500 text-red-300 px-4 py-3 rounded-md">

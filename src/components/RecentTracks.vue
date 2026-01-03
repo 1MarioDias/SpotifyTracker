@@ -1,8 +1,12 @@
 <script>
 import externalAPIs from '../services/externalAPIs';
+import LoadingSkeleton from './LoadingSkeleton.vue';
 
 export default {
   name: 'RecentTracks',
+  components: {
+    LoadingSkeleton
+  },
   props: {
     lastfmUsername: {
       type: String,
@@ -62,8 +66,8 @@ export default {
       <h2 class="text-xl sm:text-2xl font-heading text-text-primary">Recently Listened</h2>
     </div>
 
-    <div v-if="isLoading" class="text-center text-text-secondary flex-grow flex items-center justify-center">
-      <p>Loading recent tracks...</p>
+    <div v-if="isLoading" class="flex-grow">
+      <LoadingSkeleton type="tracks" />
     </div>
 
     <div v-else-if="error" class="bg-red-900/50 border border-red-500 text-red-300 px-4 py-3 rounded-md">

@@ -2,9 +2,13 @@
 import { mapState, mapActions } from 'pinia';
 import { useGoalStore } from '../stores/goalStore';
 import { useUserStore } from '../stores/userStore';
+import LoadingSkeleton from './LoadingSkeleton.vue';
 
 export default {
   name: 'GoalsList',
+  components: {
+    LoadingSkeleton
+  },
   data() {
     return {
       filter: 'active',
@@ -64,7 +68,16 @@ export default {
       <button @click="filter = 'completed'" :class="['py-2 px-4 text-lg', filter === 'completed' ? 'text-accent-pink border-b-2 border-accent-pink' : 'text-text-secondary']">Completed</button>
     </div>
 
-    <div v-if="isLoading" class="text-center text-text-secondary py-8">Loading goals...</div>
+    <div v-if="isLoading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div v-for="i in 3" :key="i" class="bg-primary-light rounded-lg p-6 animate-pulse">
+        <div class="space-y-4">
+          <div class="h-6 bg-primary-dark/50 rounded w-3/4"></div>
+          <div class="h-4 bg-primary-dark/50 rounded w-full"></div>
+          <div class="h-4 bg-primary-dark/50 rounded w-2/3"></div>
+          <div class="h-8 bg-primary-dark/50 rounded w-full mt-6"></div>
+        </div>
+      </div>
+    </div>
     <div v-else-if="error" class="bg-red-900/50 text-red-300 p-4 rounded-md">{{ error }}</div>
     
     <div v-else-if="filteredGoals.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -4,9 +4,13 @@ import { useUserStore } from '../stores/userStore';
 import externalAPIs from '../services/externalAPIs';
 import userService from '../services/userService';
 import logo from '../assets/images/logo.svg';
+import LoadingSkeleton from './LoadingSkeleton.vue';
 
 export default {
   name: 'CrownsRun',
+  components: {
+    LoadingSkeleton
+  },
   data() {
     return {
       isScanning: false,
@@ -125,6 +129,10 @@ export default {
     </div>
 
     <h3 class="text-lg font-semibold text-text-primary mb-3">Your Crowns ({{ userCrowns.length }})</h3>
+    
+    <div v-if="isScanning" class="flex-grow">
+      <LoadingSkeleton type="crowns" />
+    </div>
     <div class="flex-grow overflow-y-auto space-y-2 pr-2">
         <div v-if="userCrowns.length > 0">
             <div class="grid grid-cols-2 gap-3">
