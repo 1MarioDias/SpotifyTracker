@@ -6,6 +6,8 @@
       "email": "mario@mario.com",
       "password": "mario",
       "lastfm_username": "nokiaAngelz2009",
+      "xp": 990,
+      "level": 4,
       "crowns": [
         "Bladee",
         "Lucki",
@@ -32,23 +34,24 @@
         "2hollis",
         "Aphex Twin",
         "SICKBOYRARI",
-        "BBY GOYARD",
         "Arca",
+        "BBY GOYARD",
         "The Hellp",
-        "Benji Blue Bills",
+        "Team Sleep",
         "Camille Keller",
+        "Benji Blue Bills",
         "Babyfather",
         "Basement",
         "Glokk40Spaz",
-        "Lily Chou-Chou",
         "Xandre",
+        "Lily Chou-Chou",
         "UNKI",
         "Bogdan Raczynski",
         "Kankan",
         "Sematary",
+        "Humildes",
         "SAFETY TRANCE",
-        "Chris Travis",
-        "Crystal Castles"
+        "Chris Travis"
       ]
     },
     {
@@ -57,8 +60,9 @@
       "email": "sofia@sofia.com",
       "password": "sofia",
       "lastfm_username": "cyb3rgrl0",
+      "xp": 0,
+      "level": 0,
       "crowns": [
-        "Team Sleep",
         "Lana Del Rey"
       ]
     },
@@ -68,6 +72,8 @@
       "email": "marco@marco.com",
       "password": "marco",
       "lastfm_username": "vMarc0",
+      "xp": 0,
+      "level": 0,
       "crowns": [
         "Destroy Lonely",
         "A$AP Rocky"
@@ -79,6 +85,8 @@
       "email": "teste@teste.com",
       "password": "teste",
       "lastfm_username": "D9ine",
+      "xp": 175,
+      "level": 0,
       "crowns": [
         "Playboi Carti",
         "Yeat",
@@ -91,7 +99,10 @@
       "username": "a",
       "email": "a@a.com",
       "password": "a",
-      "lastfm_username": "Tobicst"
+      "lastfm_username": "Tobicst",
+      "xp": 0,
+      "level": 0,
+      "crowns": []
     }
   ],
   "goals": [
@@ -148,7 +159,7 @@
         "artistName": "esdeekid"
       },
       "userId": "685c",
-      "progress": 95,
+      "progress": 99,
       "status": "active"
     }
   ]

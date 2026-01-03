@@ -1,8 +1,18 @@
 <script>
 import externalAPIs from '../services/externalAPIs';
+import LoadingSkeleton from './LoadingSkeleton.vue';
+import { Music, AlertCircle, Clock, ChevronLeft, ChevronRight } from 'lucide-vue-next';
 
 export default {
   name: 'RecentTracks',
+  components: {
+    LoadingSkeleton,
+    Music,
+    AlertCircle,
+    Clock,
+    ChevronLeft,
+    ChevronRight
+  },
   props: {
     lastfmUsername: {
       type: String,
@@ -59,19 +69,22 @@ export default {
 <template>
   <div class="bg-primary-light p-4 sm:p-6 rounded-lg h-full flex flex-col">
     <div class="flex justify-between items-center mb-6">
-      <h2 class="text-xl sm:text-2xl font-heading text-text-primary">Recently Listened</h2>
+      <h2 class="text-xl sm:text-2xl font-heading text-text-primary flex items-center gap-2">
+        <Music :size="24" />
+        Recently Listened
+      </h2>
     </div>
 
-    <div v-if="isLoading" class="text-center text-text-secondary flex-grow flex items-center justify-center">
-      <p>Loading recent tracks...</p>
+    <div v-if="isLoading" class="flex-grow">
+      <LoadingSkeleton type="tracks" />
     </div>
 
-    <div v-else-if="error" class="bg-red-900/50 border border-red-500 text-red-300 px-4 py-3 rounded-md">
+    <div v-else-if="error" class="bg-red-900/50 border border-red-500 text-red-300 px-4 py-3 rounded-md flex items-center gap-2">
+      <AlertCircle :size="20" />
       <p><strong>Error:</strong> {{ error }}</p>
     </div>
 
     <div v-else-if="tracks.length > 0" class="flex flex-col flex-grow justify-between">
-      <!-- Lista -->
       <div class="space-y-3">
         <div 
           v-for="(track, index) in paginatedTracks" 
@@ -83,26 +96,30 @@ export default {
             <p class="font-bold text-text-primary truncate">{{ track.name }}</p>
             <p class="text-sm text-text-secondary truncate">{{ track.artist['#text'] }}</p>
           </div>
-          <div class="text-right text-sm text-text-secondary flex-shrink-0">
+          <div class="text-right text-sm text-text-secondary flex-shrink-0 flex items-center gap-1">
+            <Clock :size="14" />
             <span v-if="track['@attr'] && track['@attr'].nowplaying" class="text-accent-pink">Now Playing</span>
             <span v-else>{{ track.date?.['#text'] || 'Just now' }}</span>
           </div>
         </div>
       </div>
       
-      <!-- Paginaçãoa -->
+      <!-- paginacoa -->
       <div class="flex justify-between items-center mt-4 pt-4 border-t border-primary-dark">
-        <button @click="prevPage" :disabled="currentPage === 1" class="px-4 py-2 text-sm rounded-md disabled:opacity-50 disabled:cursor-not-allowed bg-primary-dark hover:bg-accent-purple/50">
-            Prev
+        <button @click="prevPage" :disabled="currentPage === 1" class="px-4 py-2 text-sm rounded-md disabled:opacity-50 disabled:cursor-not-allowed bg-primary-dark hover:bg-accent-purple/50 flex items-center gap-1">
+          <ChevronLeft :size="16" />
+          Prev
         </button>
         <span class="text-sm text-text-secondary">Page {{ currentPage }} of {{ totalPages }}</span>
-        <button @click="nextPage" :disabled="currentPage === totalPages" class="px-4 py-2 text-sm rounded-md disabled:opacity-50 disabled:cursor-not-allowed bg-primary-dark hover:bg-accent-purple/50">
-            Next
+        <button @click="nextPage" :disabled="currentPage === totalPages" class="px-4 py-2 text-sm rounded-md disabled:opacity-50 disabled:cursor-not-allowed bg-primary-dark hover:bg-accent-purple/50 flex items-center gap-1">
+          Next
+          <ChevronRight :size="16" />
         </button>
       </div>
     </div>
 
-    <div v-else class="text-center text-text-secondary flex-grow flex items-center justify-center">
+    <div v-else class="text-center text-text-secondary flex-grow flex items-center justify-center flex-col gap-2">
+      <Music :size="48" class="opacity-50" />
       <p>No recent tracks found.</p>
     </div>
   </div>

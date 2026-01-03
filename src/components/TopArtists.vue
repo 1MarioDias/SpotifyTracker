@@ -1,9 +1,17 @@
 <script>
 import externalAPIs from '../services/externalAPIs';
 import html2canvas from 'html2canvas';
+import LoadingSkeleton from './LoadingSkeleton.vue';
+import { Mic2, Download, AlertCircle } from 'lucide-vue-next';
 
 export default {
   name: 'TopArtists',
+  components: {
+    LoadingSkeleton,
+    Mic2,
+    Download,
+    AlertCircle
+  },
   props: {
     lastfmUsername: {
       type: String,
@@ -42,7 +50,7 @@ export default {
       this.selectedPeriod = periodValue;
     },
     getArtistImage(artist) {
-      // só vai buscar a lógica ao service da api
+      // só vai buscar a lógica ao service da API
       if (artist.spotifyImage) {
         return artist.spotifyImage;
       }
@@ -74,8 +82,12 @@ export default {
 <template>
   <div class="bg-primary-light p-4 sm:p-6 rounded-lg h-full">
     <div class="flex justify-between items-center mb-4">
-      <h2 class="text-xl sm:text-2xl font-heading text-text-primary">Top Artists</h2>
-      <button @click="downloadAsJPEG" class="text-sm bg-accent-purple text-white px-3 py-1 rounded-md hover:bg-opacity-90 transition-colors">
+      <h2 class="text-xl sm:text-2xl font-heading text-text-primary flex items-center gap-2">
+        <Mic2 :size="24" />
+        Top Artists
+      </h2>
+      <button @click="downloadAsJPEG" class="text-sm bg-accent-purple text-white px-3 py-1 rounded-md hover:bg-opacity-90 transition-colors flex items-center gap-1">
+        <Download :size="16" />
         Print
       </button>
     </div>
@@ -97,11 +109,12 @@ export default {
     </div>
 
     <div ref="captureArea">
-      <div v-if="isLoading" class="text-center text-text-secondary">
-        <p>Loading top artists...</p>
+      <div v-if="isLoading">
+        <LoadingSkeleton type="artists" />
       </div>
 
-      <div v-else-if="error" class="bg-red-900/50 border border-red-500 text-red-300 px-4 py-3 rounded-md">
+      <div v-else-if="error" class="bg-red-900/50 border border-red-500 text-red-300 px-4 py-3 rounded-md flex items-center gap-2">
+        <AlertCircle :size="20" />
         <p><strong>Error:</strong> {{ error }}</p>
       </div>
 
@@ -123,7 +136,7 @@ export default {
             v-else 
             class="w-full h-full flex items-center justify-center bg-primary-dark rounded-md"
           >
-            <span class="text-text-secondary text-sm">No Image</span>
+            <Mic2 :size="32" class="text-text-secondary opacity-50" />
           </div>
           <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md">
             <div class="text-center p-2">
@@ -134,7 +147,8 @@ export default {
         </div>
       </div>
 
-      <div v-else class="text-center text-text-secondary">
+      <div v-else class="text-center text-text-secondary flex flex-col items-center gap-2">
+        <Mic2 :size="48" class="opacity-50" />
         <p>No top artists found for this period.</p>
       </div>
     </div>

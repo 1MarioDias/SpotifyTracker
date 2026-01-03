@@ -4,9 +4,19 @@ import { useUserStore } from '../stores/userStore';
 import externalAPIs from '../services/externalAPIs';
 import userService from '../services/userService';
 import logo from '../assets/images/logo.svg';
+import LoadingSkeleton from './LoadingSkeleton.vue';
+import { Crown, Search, ChevronLeft, ChevronRight, AlertCircle } from 'lucide-vue-next';
 
 export default {
   name: 'CrownsRun',
+  components: {
+    LoadingSkeleton,
+    Crown,
+    Search,
+    ChevronLeft,
+    ChevronRight,
+    AlertCircle
+  },
   data() {
     return {
       isScanning: false,
@@ -38,8 +48,9 @@ export default {
 
       try {
         const currentUser = this.user;
+        const userStore = useUserStore();
         const allUsers = await userService.getAllUsers();
-        const topArtists = await externalAPIs.getTopArtists(currentUser.lastfm_username, 'overall', 50); // Check top 50 artists
+        const topArtists = await externalAPIs.getTopArtists(currentUser.lastfm_username, 'overall', 50);
 
         const crownHolders = {};
 
@@ -62,19 +73,34 @@ export default {
           }
         }
 
+        // conta quantas crowns o user tinha antes do scan
+        const oldCrownsCount = currentUser.crowns?.length || 0;
+
         // Rouba as crowns que estavam assigned a outros users após o scan
         for (const u of allUsers) {
           const newCrowns = Object.keys(crownHolders).filter(
             artistName => crownHolders[artistName].userId === u.id
           );
           await userService.updateUser(u.id, { crowns: newCrowns });
+          
           if (u.id === currentUser.id) {
             this.userCrowns = newCrowns;
             this.currentPage = 1;
+
+            // calcula quantas crowns o user ganhou no scan
+            const newCrownsCount = newCrowns.length;
+            const crownsGained = newCrownsCount - oldCrownsCount;
+            
+            if (crownsGained > 0) {
+              for (let i = 0; i < crownsGained; i++) {
+                await userStore.addCrownXP();
+              }
+              this.scanMessage = `Scan complete! You gained ${crownsGained} new crown(s) and earned ${crownsGained * 5} XP!`;
+            } else {
+              this.scanMessage = `Scan complete! You have ${this.userCrowns.length} crowns.`;
+            }
           }
         }
-
-        this.scanMessage = `Scan complete! You now have ${this.userCrowns.length} crowns.`;
       } catch (err) {
         this.scanError = `An error occurred during the scan: ${err.message}`;
         this.scanMessage = '';
@@ -110,42 +136,55 @@ export default {
 
 <template>
   <div class="bg-primary-light p-4 sm:p-6 rounded-lg h-full flex flex-col">
-    <h2 class="text-xl sm:text-2xl font-heading text-text-primary mb-4">Crown Run</h2>
+    <h2 class="text-xl sm:text-2xl font-heading text-text-primary mb-4 flex items-center gap-2">
+      <Crown :size="24" />
+      Crown Run
+    </h2>
     
     <div class="mb-6">
       <button 
         @click="scanForCrowns" 
         :disabled="isScanning"
-        class="w-full bg-accent-purple text-white font-bold py-3 px-4 rounded-md hover:bg-opacity-90 transition-colors duration-200 disabled:bg-gray-600 disabled:cursor-not-allowed"
+        class="w-full bg-accent-purple text-white font-bold py-3 px-4 rounded-md hover:bg-opacity-90 transition-colors duration-200 disabled:bg-gray-600 disabled:cursor-not-allowed flex items-center justify-center gap-2"
       >
+        <Search :size="20" :class="{ 'animate-pulse': isScanning }" />
         {{ isScanning ? 'Scanning...' : 'Scan For Crowns' }}
       </button>
       <p v-if="scanMessage" class="text-green-400 text-xs mt-2 text-center">{{ scanMessage }}</p>
-      <p v-if="scanError" class="text-red-500 text-xs mt-2 text-center">{{ scanError }}</p>
+      <p v-if="scanError" class="text-red-500 text-xs mt-2 text-center flex items-center justify-center gap-1">
+        <AlertCircle :size="14" />
+        {{ scanError }}
+      </p>
     </div>
 
     <h3 class="text-lg font-semibold text-text-primary mb-3">Your Crowns ({{ userCrowns.length }})</h3>
+    
+    <div v-if="isScanning" class="flex-grow">
+      <LoadingSkeleton type="crowns" />
+    </div>
     <div class="flex-grow overflow-y-auto space-y-2 pr-2">
         <div v-if="userCrowns.length > 0">
             <div class="grid grid-cols-2 gap-3">
                 <div v-for="crown in paginatedCrowns" :key="crown" class="bg-primary-dark p-3 rounded-md flex items-center">
-                    <img :src="logo" alt="Crown" class="inline-block w-6 h-6 mr-2" />
+                    <Crown :size="20" class="text-accent-pink mr-2" />
                     <p class="font-bold text-accent-pink truncate">{{ crown }}</p>
                 </div>
             </div>
 
-            <!-- pagination -->
             <div class="flex justify-between items-center mt-4 pt-4 border-t border-primary-dark">
-              <button @click="prevPage" :disabled="currentPage === 1" class="px-4 py-2 text-sm rounded-md disabled:opacity-50 disabled:cursor-not-allowed bg-primary-dark hover:bg-accent-purple/50">
+              <button @click="prevPage" :disabled="currentPage === 1" class="px-4 py-2 text-sm rounded-md disabled:opacity-50 disabled:cursor-not-allowed bg-primary-dark hover:bg-accent-purple/50 flex items-center gap-1">
+                  <ChevronLeft :size="16" />
                   Prev
               </button>
               <span class="text-sm text-text-secondary">Page {{ currentPage }} of {{ totalPages }}</span>
-              <button @click="nextPage" :disabled="currentPage === totalPages" class="px-4 py-2 text-sm rounded-md disabled:opacity-50 disabled:cursor-not-allowed bg-primary-dark hover:bg-accent-purple/50">
+              <button @click="nextPage" :disabled="currentPage === totalPages" class="px-4 py-2 text-sm rounded-md disabled:opacity-50 disabled:cursor-not-allowed bg-primary-dark hover:bg-accent-purple/50 flex items-center gap-1">
                   Next
+                  <ChevronRight :size="16" />
               </button>
             </div>
         </div>
-        <div v-else class="text-center text-text-secondary py-4">
+        <div v-else class="text-center text-text-secondary py-4 flex flex-col items-center gap-2">
+            <Crown :size="48" class="opacity-50" />
             <p>You don't have any crowns yet. Try scanning to claim them!</p>
         </div>
     </div>
