@@ -36,7 +36,7 @@ export default {
 
 <template>
   <div class="p-4 sm:p-6 lg:p-8 text-text-primary">
-    <div class="max-w-7xl mx-auto">
+    <div class="w-full">
       <div class="md:ml-[10%] mx-auto px-4 md:px-8 lg:px-12 py-8 md:py-12 lg:py-16">
         <div class="relative w-full mx-auto">
           <div
