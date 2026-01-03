@@ -4,6 +4,7 @@ import { useUserStore } from '../stores/userStore';
 import RecentTracks from '../components/RecentTracks.vue';
 import TopArtists from '../components/TopArtists.vue';
 import CrownsRun from '../components/CrownsRun.vue';
+import { Music2, AlertCircle } from 'lucide-vue-next';
 
 export default {
   name: 'DashboardView',
@@ -11,6 +12,8 @@ export default {
     RecentTracks,
     TopArtists,
     CrownsRun,
+    Music2,
+    AlertCircle
   },
   data() {
     return {
@@ -36,7 +39,8 @@ export default {
     <div class="max-w-7xl mx-auto">
       <h1 class="text-3xl sm:text-4xl font-heading font-bold mb-8">{{ welcomeMessage }}</h1>
 
-      <div v-if="error" class="bg-red-900/50 border border-red-500 text-red-300 px-4 py-3 rounded-md mb-8">
+      <div v-if="error" class="bg-red-900/50 border border-red-500 text-red-300 px-4 py-3 rounded-md mb-8 flex items-center gap-2">
+        <AlertCircle :size="20" />
         <p><strong>Error:</strong> {{ error }}</p>
       </div>
 
@@ -54,7 +58,8 @@ export default {
         </div>
       </div>
       
-      <div v-else class="text-center text-text-secondary">
+      <div v-else class="text-center text-text-secondary flex items-center justify-center gap-2">
+        <Music2 :size="20" class="animate-pulse" />
         <p>Loading user data...</p>
       </div>
     </div>

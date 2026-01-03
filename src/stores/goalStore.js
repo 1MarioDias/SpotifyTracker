@@ -79,22 +79,23 @@ export const useGoalStore = defineStore('goal', {
     },
 
     async checkGoalProgress(goal) {
-      const appStore = useUserStore();
-      if (!appStore.user) return;
+      const userStore = useUserStore();
+      if (!userStore.user) return;
 
       this.isLoading = true;
       this.error = null;
       let newProgress = goal.progress;
+      const wasCompleted = goal.status === 'completed';
 
       try {
         // tracking do progresso em relação a oubir tracks de x artista já está automatizado
         if (goal.type === 'listen_tracks' && goal.meta.artistName) {
-          const artistInfo = await externalAPIs.getArtistInfo(appStore.user.lastfm_username, goal.meta.artistName);
+          const artistInfo = await externalAPIs.getArtistInfo(userStore.user.lastfm_username, goal.meta.artistName);
           newProgress = parseInt(artistInfo.userplaycount || 0, 10);
         } else if (goal.type === 'earn_badges') {
           // checka as crowns previamente fetched do user
-          const user = await userService.loginUser({ email: appStore.user.email, password: appStore.user.password });
-          appStore.login(user);
+          const user = await userService.loginUser({ email: userStore.user.email, password: userStore.user.password });
+          userStore.login(user);
           newProgress = user.crowns.length;
         } else {
           // é preciso automatizar depois ao usar a library.getartists da API do LastFM
@@ -107,6 +108,12 @@ export const useGoalStore = defineStore('goal', {
         const status = progress >= goal.target ? 'completed' : 'active';
         
         await this.editGoal(goal.id, { ...goal, progress, status });
+
+        // adiciona XP se o goal foi completado agora
+        if (status === 'completed' && !wasCompleted) {
+          const xpResult = await userStore.addGoalXP(goal.xp);
+          console.log(`Goal completed! Earned ${goal.xp} XP!`, xpResult);
+        }
 
       } catch (err) {
         this.error = `Failed to check progress: ${err.message}`;

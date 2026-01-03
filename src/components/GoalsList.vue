@@ -3,11 +3,20 @@ import { mapState, mapActions } from 'pinia';
 import { useGoalStore } from '../stores/goalStore';
 import { useUserStore } from '../stores/userStore';
 import LoadingSkeleton from './LoadingSkeleton.vue';
+import { Target, Plus, Edit, Trash2, RefreshCw, Calendar, Award, AlertCircle } from 'lucide-vue-next';
 
 export default {
   name: 'GoalsList',
   components: {
-    LoadingSkeleton
+    LoadingSkeleton,
+    Target,
+    Plus,
+    Edit,
+    Trash2,
+    RefreshCw,
+    Calendar,
+    Award,
+    AlertCircle
   },
   data() {
     return {
@@ -57,8 +66,12 @@ export default {
 <template>
   <div>
     <div class="flex justify-between items-center mb-8">
-      <h1 class="text-3xl sm:text-4xl font-heading font-bold">Your Goals</h1>
-      <router-link :to="{ name: 'goals', params: { action: 'create' } }" class="bg-accent-pink text-white font-bold py-2 px-4 rounded-md hover:bg-opacity-90 transition-colors">
+      <h1 class="text-3xl sm:text-4xl font-heading font-bold flex items-center gap-2">
+        <Target :size="32" />
+        Your Goals
+      </h1>
+      <router-link :to="{ name: 'goals', params: { action: 'create' } }" class="bg-accent-pink text-white font-bold py-2 px-4 rounded-md hover:bg-opacity-90 transition-colors flex items-center gap-2">
+        <Plus :size="20" />
         New Goal
       </router-link>
     </div>
@@ -78,7 +91,11 @@ export default {
         </div>
       </div>
     </div>
-    <div v-else-if="error" class="bg-red-900/50 text-red-300 p-4 rounded-md">{{ error }}</div>
+
+    <div v-else-if="error" class="bg-red-900/50 text-red-300 p-4 rounded-md flex items-center gap-2">
+      <AlertCircle :size="20" />
+      {{ error }}
+    </div>
     
     <div v-else-if="filteredGoals.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <div v-for="goal in filteredGoals" :key="goal.id" class="bg-primary-light rounded-lg p-6 flex flex-col">
@@ -89,9 +106,18 @@ export default {
           </div>
           <p class="text-sm text-text-secondary mb-4">{{ goal.description }}</p>
           <div class="text-xs text-text-secondary mb-4 space-y-1">
-            <p><strong>Type:</strong> {{ formatType(goal.type) }}</p>
-            <p><strong>Deadline:</strong> {{ new Date(goal.deadline).toLocaleDateString() }}</p>
-            <p><strong>Reward:</strong> {{ goal.xp }} XP</p>
+            <p class="flex items-center gap-1">
+              <Target :size="14" />
+              <strong>Type:</strong> {{ formatType(goal.type) }}
+            </p>
+            <p class="flex items-center gap-1">
+              <Calendar :size="14" />
+              <strong>Deadline:</strong> {{ new Date(goal.deadline).toLocaleDateString() }}
+            </p>
+            <p class="flex items-center gap-1">
+              <Award :size="14" />
+              <strong>Reward:</strong> {{ goal.xp }} XP
+            </p>
           </div>
         </div>
         
@@ -106,14 +132,25 @@ export default {
         </div>
 
         <div class="flex gap-4 items-center mt-6 border-t border-primary-dark pt-4">
-          <router-link :to="{ name: 'goals', params: { action: 'edit', id: goal.id } }" class="text-sm text-accent-purple hover:underline">Edit</router-link>
-          <button @click="confirmDelete(goal.id)" class="text-sm text-red-500 hover:underline">Delete</button>
-          <button v-if="isAutomatable(goal) && goal.status === 'active'" @click="checkGoalProgress(goal)" class="ml-auto text-sm bg-accent-purple/80 text-white px-3 py-1 rounded-md hover:bg-accent-purple transition-colors">
+          <router-link :to="{ name: 'goals', params: { action: 'edit', id: goal.id } }" class="text-sm text-accent-purple hover:underline flex items-center gap-1">
+            <Edit :size="14" />
+            Edit
+          </router-link>
+          <button @click="confirmDelete(goal.id)" class="text-sm text-red-500 hover:underline flex items-center gap-1">
+            <Trash2 :size="14" />
+            Delete
+          </button>
+          <button v-if="isAutomatable(goal) && goal.status === 'active'" @click="checkGoalProgress(goal)" class="ml-auto text-sm bg-accent-purple/80 text-white px-3 py-1 rounded-md hover:bg-accent-purple transition-colors flex items-center gap-1">
+            <RefreshCw :size="14" />
             Check Progress
           </button>
         </div>
       </div>
     </div>
-    <div v-else class="text-center text-text-secondary py-8">No {{ filter }} goals found.</div>
+
+    <div v-else class="text-center text-text-secondary py-8 flex flex-col items-center gap-2">
+      <Target :size="48" class="opacity-50" />
+      <p>No {{ filter }} goals found.</p>
+    </div>
   </div>
 </template>
