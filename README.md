@@ -229,7 +229,7 @@ Under Construction
       <sub>Full Stack Developer</sub>
     </td>
     <td align="center">
-      <a href="https://github.com/dianateles1">
+      <a href="https://github.com/DSTeles">
         <sub><b>Diana Teles</b></sub>
       </a><br />
       <sub>Full Stack Developer</sub>
