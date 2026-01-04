@@ -68,7 +68,7 @@ export default {
                       class="ml-2 p-2 rounded-full bg-primary hover:bg-primary-dark transition-colors focus:outline-none focus:ring-2 focus:ring-primary-dark"
                       aria-label="Edit Profile"
                     >
-                      <!-- Replace with icon later -->
+ 
                       <span class="text-white text-lg font-bold">✎</span>
                     </button>
                   </div>
@@ -77,7 +77,7 @@ export default {
                   </p>
                 </div>
 
-                <!-- display do nível do user -->
+
                 <div class="pt-4 border-t border-primary-dark/50">
                   <LevelDisplay />
                 </div>

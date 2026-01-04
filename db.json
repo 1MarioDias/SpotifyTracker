@@ -8,51 +8,7 @@
       "lastfm_username": "nokiaAngelz2009",
       "xp": 990,
       "level": 4,
-      "crowns": [
-        "Bladee",
-        "Lucki",
-        "YABUJIN",
-        "Yung Lean",
-        "Dean Blunt",
-        "Deftones",
-        "elusin",
-        "REDDA",
-        "Izaya Tiji",
-        "Black Kray",
-        "Drain Gang Archive",
-        "Thaiboy Digital",
-        "Ecco2K",
-        "2heaven",
-        "Snow Strippers",
-        "fakemink",
-        "Skrillex",
-        "Homixide Gang",
-        "Misfits",
-        "Lancey Foux",
-        "Lil B",
-        "UnoTheActivist",
-        "2hollis",
-        "Aphex Twin",
-        "SICKBOYRARI",
-        "Arca",
-        "BBY GOYARD",
-        "The Hellp",
-        "Team Sleep",
-        "Camille Keller",
-        "Benji Blue Bills",
-        "Babyfather",
-        "Basement",
-        "Glokk40Spaz",
-        "Xandre",
-        "Lily Chou-Chou",
-        "UNKI",
-        "Bogdan Raczynski",
-        "Kankan",
-        "Sematary",
-        "Humildes",
-        "SAFETY TRANCE",
-        "Chris Travis"
-      ]
+      "crowns": []
     },
     {
       "id": "291c",
@@ -62,9 +18,7 @@
       "lastfm_username": "cyb3rgrl0",
       "xp": 0,
       "level": 0,
-      "crowns": [
-        "Lana Del Rey"
-      ]
+      "crowns": []
     },
     {
       "id": "925a",
@@ -75,8 +29,7 @@
       "xp": 0,
       "level": 0,
       "crowns": [
-        "Destroy Lonely",
-        "A$AP Rocky"
+        "Tame Impala"
       ]
     },
     {
@@ -87,12 +40,7 @@
       "lastfm_username": "D9ine",
       "xp": 175,
       "level": 0,
-      "crowns": [
-        "Playboi Carti",
-        "Yeat",
-        "Ken Carson",
-        "nettspend"
-      ]
+      "crowns": []
     },
     {
       "id": "04c7",
@@ -100,11 +48,26 @@
       "email": "a@a.com",
       "password": "a",
       "lastfm_username": "Tobicst",
-      "xp": 200,
-      "level": 1,
+      "xp": 445,
+      "level": 2,
       "crowns": [],
       "vinylColor": "red",
       "profilePicture": "image.jpg"
+    },
+    {
+      "id": "1",
+      "username": "admin",
+      "email": "admin@admin.com",
+      "password": "admin",
+      "lastfm_username": "admin",
+      "isAdmin": true
+    },
+    {
+      "id": "0cbd",
+      "username": "tammy",
+      "email": "tammy@tammy.com",
+      "password": "tammy",
+      "lastfm_username": "Tobicst"
     }
   ],
   "goals": [

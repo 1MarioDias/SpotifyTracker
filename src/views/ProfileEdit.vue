@@ -16,6 +16,13 @@ export default {
       return this.user?.lastfm_username ?? '';
     }
   },
+  async mounted() {
+    const store = useUserStore();
+    if (!store.user) {
+      this.$router.push({ name: 'login' });
+      return;
+    }
+  },
   data() {
     return {
       username: '',

@@ -6,6 +6,7 @@ import GoalsView from '../views/GoalsView.vue'
 import Profile from '../views/ProfileView.vue'
 import CollagesView from '../views/CollagesView.vue'
 import ProfileEdit from '../views/ProfileEdit.vue'
+import AdminDashboard from '../views/AdminDashboard.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,10 +42,20 @@ const router = createRouter({
       name: 'profile',
       component: Profile
     },
-        {
+    {
       path: '/profileEdit',
       name: 'profileEdit',
       component: ProfileEdit
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      redirect: '/'
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: AdminDashboard
     }
   ]
 })

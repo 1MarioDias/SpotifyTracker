@@ -1,4 +1,5 @@
 <script>
+import { isAxiosError } from 'axios';
 import { useUserStore } from '../stores/userStore'
 import { mapState, mapActions } from 'pinia'
 import { RouterLink } from 'vue-router'
@@ -14,7 +15,11 @@ export default {
     }
   },
   computed: {
-    ...mapState(useUserStore, ['isLoggedIn'])
+    ...mapState(useUserStore, ['isLoggedIn', 'user']),
+
+    isAdmin() {
+      return this.user?.isAdmin ?? false;
+    }
   },
   methods: {
     ...mapActions(useUserStore, ['logout']),
@@ -44,7 +49,7 @@ export default {
         </div>
       <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 lg:gap-12 font-nav text-text-primary text-lg sm:text-xl lg:text-2xl">
         
-        <!-- Logged Out -->
+
         <template v-if="!isLoggedIn">
           <RouterLink 
             to="/login"
@@ -54,9 +59,13 @@ export default {
           </RouterLink>
         </template>
 
-        <!-- Logged In -->
         <template v-if="isLoggedIn">
-          <RouterLink to="/dashboard" class="hover:text-accent-pink transition-colors duration-200">DASHBOARD</RouterLink>
+           <RouterLink
+              :to="isAdmin ? '/admin' : '/dashboard'"
+              class="hover:text-accent-pink transition-colors duration-200"
+            >
+              {{ isAdmin ? 'ADMIN' : 'DASHBOARD' }}
+          </RouterLink>
           <RouterLink to="/goals" class="hover:text-accent-pink transition-colors duration-200">GOALS</RouterLink>
           <RouterLink to="/collages" class="hover:text-accent-pink transition-colors duration-200">COLLAGES</RouterLink>
           <div class="relative">
