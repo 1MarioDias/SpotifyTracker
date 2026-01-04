@@ -123,5 +123,24 @@ export default {
     return enhancedArtists;
   },
 
+  async getTopAlbums(lastfmUsername, period = '7day', limit = 9) {
+    const response = await axios.get(lastFmApiUrl, {
+      params: {
+        method: 'user.gettopalbums',
+        user: lastfmUsername,
+        api_key: lastFmApiKey,
+        format: 'json',
+        period: period,
+        limit: limit
+      }
+    });
+    
+    if (response.data.error) {
+      throw new Error(response.data.message);
+    }
+    
+    return response.data.topalbums.album;
+  },
+
   getSpotifyArtistImage
 };

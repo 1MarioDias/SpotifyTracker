@@ -4,9 +4,7 @@ import AuthView from '../views/AuthView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import GoalsView from '../views/GoalsView.vue'
 import Profile from '../views/ProfileView.vue'
-
-const Collages = { template: '<div class="text-white text-center p-8">Collages Page</div>' }
-
+import CollagesView from '../views/CollagesView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,7 +33,7 @@ const router = createRouter({
     {
       path: '/collages',
       name: 'collages',
-      component: Collages
+      component: CollagesView
     },
     {
       path: '/profile',
