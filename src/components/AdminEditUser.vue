@@ -1,7 +1,6 @@
 <template>
   <div v-if="visible" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
     <div class="bg-primary-light p-8 rounded-lg max-w-md w-full relative">
-      <!-- Close Button -->
       <button
         @click="$emit('close')"
         class="absolute top-2 right-2 text-text-secondary hover:text-white"
@@ -75,7 +74,6 @@ export default {
   },
   watch: {
     user(newUser) {
-      // Reset fields when a different user is selected
       this.username = newUser.username;
       this.password = '';
       this.lastfm_username = newUser.lastfm_username || '';
@@ -98,7 +96,7 @@ export default {
         }
 
         await userService.updateUser(this.user.id, updatedData);
-        this.$emit('updated'); // Notify parent to refresh user list
+        this.$emit('updated');
         this.$emit('close');
       } catch (err) {
         this.error = 'Failed to update user. Please try again.';
@@ -107,7 +105,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-/* Optional: smooth fade-in for modal */
-</style>

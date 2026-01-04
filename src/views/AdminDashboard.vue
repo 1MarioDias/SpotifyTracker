@@ -16,10 +16,8 @@ export default {
         page: 1,
         perPage: 5,
         totalUsers: 0,
-        // MODAL
         showEditModal: false,
         selectedUser: null,
-        // MODAL
     };
   },
 
@@ -64,7 +62,6 @@ export default {
       }
     },
 
-    // MODAL
     openEditModal(user) {
         if (!user) return;
         this.selectedUser = user;
@@ -73,7 +70,6 @@ export default {
     refreshUsers() {
         this.fetchUsers();
     }
-    // MODAL
   },
 
   async mounted() {
@@ -145,21 +141,16 @@ export default {
                 </span>
               </td>
 
-              <!-- Actions column -->
+
               <td class="p-4 flex gap-2">
-                <!-- <button
-                  class="px-3 py-1 rounded bg-blue-500 text-white text-sm hover:bg-blue-600 transition-colors duration-200"
-                >
-                  Edit
-                </button> -->
-                <!-- MODAL -->
+
                 <button
                     @click="openEditModal(user)"
                     class="px-3 py-1 rounded bg-blue-500 text-white text-sm hover:bg-blue-600 transition-colors duration-200"
                     >
                     Edit
                 </button>
-                <!-- MODAL -->
+
                   <button
                         @click="deleteUser(user)"
                         class="px-3 py-1 rounded bg-red-500 text-white text-sm hover:bg-red-600 transition-colors duration-200"

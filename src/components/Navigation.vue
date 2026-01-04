@@ -1,5 +1,4 @@
 <script>
-import { isAxiosError } from 'axios';
 import { useUserStore } from '../stores/userStore'
 import { mapState, mapActions } from 'pinia'
 import { RouterLink } from 'vue-router'
