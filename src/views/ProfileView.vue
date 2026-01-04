@@ -59,9 +59,19 @@ export default {
 
               <div class="flex-1 space-y-6 md:space-y-8 text-center md:text-left">
                 <div>
-                  <h1 class="text-5xl md:text-6xl lg:text-7xl xl:text-[77px] font-heading font-normal leading-tight">
-                    {{ userName }}
-                  </h1>
+                  <div class="flex items-center justify-center md:justify-start gap-2">
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl xl:text-[77px] font-heading font-normal leading-tight">
+                      {{ userName }}
+                    </h1>
+                    <button
+                      @click="$router.push({ name: 'profileEdit' })"
+                      class="ml-2 p-2 rounded-full bg-primary hover:bg-primary-dark transition-colors focus:outline-none focus:ring-2 focus:ring-primary-dark"
+                      aria-label="Edit Profile"
+                    >
+                      <!-- Replace with icon later -->
+                      <span class="text-white text-lg font-bold">✎</span>
+                    </button>
+                  </div>
                   <p class="text-base md:text-lg mt-2 opacity-90 text-text-secondary">
                     {{ email }}
                   </p>

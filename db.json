@@ -100,9 +100,11 @@
       "email": "a@a.com",
       "password": "a",
       "lastfm_username": "Tobicst",
-      "xp": 0,
-      "level": 0,
-      "crowns": []
+      "xp": 200,
+      "level": 1,
+      "crowns": [],
+      "vinylColor": "red",
+      "profilePicture": "image.jpg"
     }
   ],
   "goals": [

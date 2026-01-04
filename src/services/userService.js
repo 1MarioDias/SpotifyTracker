@@ -30,7 +30,15 @@ export default {
     return localApiClient.get('/users').then(res => res.data);
   },
 
+  getUserById(userId) {
+    return localApiClient.get(`/users/${userId}`).then(res => res.data);
+  },
+
   updateUser(userId, userData) {
     return localApiClient.patch(`/users/${userId}`, userData);
+  },
+
+  deleteUser(userId) {
+    return localApiClient.delete(`/users/${userId}`);
   }
 };
