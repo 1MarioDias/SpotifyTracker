@@ -1,7 +1,12 @@
 export const VINYL_COLORS = [
-    { color: 'red', image: 'vinyl-red.png' },
-    { color: 'blue', image: 'vinyl-blue.png' },
-    { color: 'green', image: 'vinyl-green.png' },
-    { color: 'yellow', image: 'vinyl-yellow.png' },
-    { color: 'pink', image: 'vinyl-pink.png' },
+
+    { level: 0, color: 'black'},
+    { level: 1, color: 'purple'},
+    { level: 2, color: 'blue'},
+    { level: 3, color: 'red'},
+    { level: 4, color: 'gold'},
 ];
+
+export function getUnlockedVinyls(level) {
+    return VINYL_COLORS.filter(vinyl => vinyl.level <= level);
+}

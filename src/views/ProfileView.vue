@@ -3,12 +3,14 @@ import { mapState } from 'pinia';
 import { useUserStore } from '../stores/userStore';
 import Navigation from '../components/Navigation.vue';
 import LevelDisplay from '../components/LevelDisplay.vue';
+import ProfileAvatar from '../components/ProfileAvatar.vue';
 
 export default {
   name: 'Profile',
   components: { 
     Navigation,
-    LevelDisplay
+    LevelDisplay,
+    ProfileAvatar
   },
   data() {
     return {
@@ -22,7 +24,7 @@ export default {
     },
     email() {
       return this.user?.email ?? 'Not set';
-    }
+    },
   },
   async mounted() {
     const store = useUserStore();
@@ -35,9 +37,9 @@ export default {
 </script>
 
 <template>
-  <div class="p-4 sm:p-6 lg:p-8 text-text-primary">
+  <div class="pt-4 pb-4 pl-4 sm:pt-6 sm:pb-6 sm:pl-6 lg:pt-8 lg:pb-8 lg:pl-8 text-text-primary">
     <div class="w-full">
-      <div class="md:ml-[10%] mx-auto px-4 md:px-8 lg:px-12 py-8 md:py-12 lg:py-16">
+      <div class="md:ml-[10%] pl-4 md:pl-8 lg:pl-12 pr-0 py-8 md:py-12 lg:py-16">
         <div class="relative w-full mx-auto">
           <div
             class="relative overflow-hidden"
@@ -48,13 +50,10 @@ export default {
             }"
           >
             <div class="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12 lg:gap-16 p-6 md:p-12 lg:p-16">
-              <div class="flex-shrink-0">
-                <img
-                  src="../assets/images/vinyl.png"
-                  alt="Vinyl record"
-                  class="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-[361px] xl:h-[361px] rounded-full object-cover"
-                  :style="{ boxShadow: '0 0 26.3px 0 rgba(0, 0, 0, 0.50)' }"
-                />
+              <!-- profile avatar -->
+               
+              <div class="flex-shrink-0 relative w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-[361px] xl:h-[361px]">
+                <ProfileAvatar class="absolute inset-0 w-full h-full" />
               </div>
 
               <div class="flex-1 space-y-6 md:space-y-8 text-center md:text-left">
@@ -76,11 +75,7 @@ export default {
                     {{ email }}
                   </p>
                 </div>
-
-
-                <div class="pt-4 border-t border-primary-dark/50">
-                  <LevelDisplay />
-                </div>
+                <LevelDisplay />
               </div>
 
               <div class="flex-shrink-0 flex flex-col items-center gap-6 relative">

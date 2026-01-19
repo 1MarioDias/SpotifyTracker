@@ -2,6 +2,7 @@
 import Navigation from '../components/Navigation.vue'
 import LoginButton from '../components/LoginButton.vue'
 import { Music, Target, Grid3X3, Crown, TrendingUp, Zap, Award, Users } from 'lucide-vue-next'
+import ProfileAvatar from '../components/ProfileAvatar.vue';
 
 export default {
   name: 'HomeView',
@@ -14,7 +15,8 @@ export default {
     TrendingUp,
     Zap,
     Award,
-    Users
+    Users,
+    ProfileAvatar
   },
   data() {
     return {
@@ -92,14 +94,11 @@ export default {
     <section class="relative w-full px-4 py-12 lg:py-20">
       <div class="max-w-[1440px] mx-auto flex flex-col items-center">
         <div class="relative w-full max-w-[600px] lg:max-w-[990px] mb-[-300px] lg:mb-[-400px]">
-          <div class="relative w-full aspect-square drop-shadow-[0_4px_50px_rgba(0,0,0,0.50)]">
-            <img 
-              src="../assets/images/vinyl.png"
-              alt="Vinyl record" 
-              class="absolute inset-0 w-full h-full object-cover"
-            />
-          </div>
-        </div>
+  <div class="relative w-full aspect-square drop-shadow-[0_4px_50px_rgba(0,0,0,0.50)]">
+    <ProfileAvatar />
+  </div>
+</div>
+
       </div>
     </section>
 

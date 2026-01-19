@@ -25,6 +25,9 @@ export default {
     toggleProfileDropdown() {
       this.isProfileOpen = !this.isProfileOpen
     },
+    closeProfileDropdown() {
+      this.isProfileOpen = false
+    },
     handleLogout() {
       this.logout()
       this.isProfileOpen = false
@@ -72,7 +75,7 @@ export default {
               PROFILE
             </button>
             <div v-if="isProfileOpen" class="absolute right-0 mt-2 w-48 bg-primary-light rounded-md shadow-lg py-1 z-50">
-              <RouterLink to="/profile" class="block px-4 py-2 text-sm text-text-primary hover:bg-accent-purple">View Profile</RouterLink>
+              <RouterLink to="/profile" class="block px-4 py-2 text-sm text-text-primary hover:bg-accent-purple" @click="closeProfileDropdown">View Profile</RouterLink>
               <button @click="handleLogout" class="block w-full text-left px-4 py-2 text-sm text-text-primary hover:bg-accent-purple">
                 Logout
               </button>

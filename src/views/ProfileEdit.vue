@@ -3,25 +3,40 @@ import { mapState } from 'pinia';
 import { useUserStore } from '../stores/userStore';
 import userService from '../services/userService';
 import Navigation from '../components/Navigation.vue';
+import { VINYL_COLORS }from '../utils/vinylSystem';
 
 export default {
   name: 'ProfileEdit',
   components: { Navigation },
   computed: {
     ...mapState(useUserStore, ['user']),
+    vinylColor(){
+      return {
+        black: 'bg-black',
+        purple: 'bg-purple-600',
+        blue: 'bg-blue-600',
+        red: 'bg-red-500',
+        gold: 'bg-yellow-400'
+      };  
+    },
+    userLevel() {
+      return this.user?.level ?? 1;
+    },
+    lockedVinyls() {
+      return VINYL_COLORS.map(vinyl => ({
+        ...vinyl,
+        unlocked: vinyl.level <= this.userLevel
+      }));
+    },
     currentUsername() {
       return this.user?.username ?? '';
     },
     currentLastfm() {
       return this.user?.lastfm_username ?? '';
-    }
-  },
-  async mounted() {
-    const store = useUserStore();
-    if (!store.user) {
-      this.$router.push({ name: 'login' });
-      return;
-    }
+    },
+    currentColor() {
+      return this.user?.vinyl_color ?? '';
+    },
   },
   data() {
     return {
@@ -29,25 +44,40 @@ export default {
       password: '',
       lastfm_username: '',
       error: null,
+      selectedColor: '',
     };
   },
-  methods: {
-    async updateProfile() {
-        this.error = null;
-        try {
-            const updatedData= {};
-            if (this.username) updatedData.username = this.username;
-            if (this.password) updatedData.password = this.password;
-            if (this.lastfm) updatedData.lastfm_username = this.lastfm;
-            await userService.updateUser(this.user.id, updatedData);
-            this.$router.push({ name: 'profile' });
-        } catch (error) {
-            this.error = 'Failed to update profile. Please try again.'; 
-        }
+  async mounted() {
+    const store = useUserStore();
+    if (!store.user) {
+      this.$router.push({ name: 'login' });
+      return;
     }
-  }
+    this.selectedColor = store.user.vinyl_color || '';
+  },
+  methods: {
+    selectColor(color) {
+      this.selectedColor = color;
+    },
+    async updateProfile() {
+      this.error = null;
+      try {
+        const updatedData = {};
+        if (this.username) updatedData.username = this.username;
+        if (this.password) updatedData.password = this.password;
+        if (this.lastfm_username) updatedData.lastfm_username = this.lastfm_username;
+        if (this.selectedColor) updatedData.vinyl_color = this.selectedColor; 
+        await userService.updateUser(this.user.id, updatedData);
+        this.$router.push({ name: 'profile' });
+      } catch (error) {
+        this.error = 'Failed to update profile. Please try again.';
+      }
+    },
+  },
 };
 </script>
+
+
 
 <template>
   <div class="p-4 sm:p-6 lg:p-8 text-text-primary">
@@ -55,11 +85,60 @@ export default {
       <h1 class="text-3xl sm:text-4xl font-heading font-bold mb-8">Edit Profile</h1>
       <form @submit.prevent="updateProfile" class="max-w-2xl mx-auto bg-primary-light p-8 rounded-lg space-y-6 border border-gray-700">
         <div class="flex flex-col items-center gap-4 mb-6">
-          <img
-            src="../assets/images/vinyl.png"
-            alt="Vinyl record"
-            class="w-32 h-32 rounded-full object-cover shadow"
-          />
+<div class="flex items-center gap-6 mb-6">
+  <!-- vinyl  -->
+  <div>
+    <img
+      src="../assets/images/vinyl.png"
+      alt="Vinyl record"
+      class="w-32 h-32 rounded-full object-cover shadow"
+    />
+  </div>
+
+<!-- buttons -->
+  <div class="flex flex-wrap gap-2">
+  <div
+    v-for="vinyl in lockedVinyls"
+    :key="vinyl.color"
+    class="relative"
+  >
+    <button
+  type="button"
+  class="w-10 h-10 rounded-full shadow-md"
+:class="[
+  vinylColor[vinyl.color],
+  selectedColor === vinyl.color ? 'ring-4 ring-accent-purple' : '',
+  !vinyl.unlocked ? 'opacity-50 cursor-not-allowed' : ''
+]"
+
+  :disabled="!vinyl.unlocked"
+  @click="vinyl.unlocked && selectColor(vinyl.color)"
+></button>
+
+
+    <!-- lock -->
+    <div
+      v-if="!vinyl.unlocked"
+      class="absolute inset-0 flex items-center justify-center"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5 text-white bg-black/60 rounded-full p-1"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 11c1.1 0 2 .9 2 2v2h-4v-2c0-1.1.9-2 2-2zm6 0h-1V9a5 5 0 00-10 0v2H6a2 2 0 00-2 2v7a2 2 0 002 2h12a2 2 0 002-2v-7a2 2 0 00-2-2z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+</div>
         </div>
         <div>
           <label class="block text-text-secondary text-sm font-bold mb-2">Username</label>
