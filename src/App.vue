@@ -1,9 +1,15 @@
 <script>
 import { RouterView } from 'vue-router'
 import Navigation from './components/Navigation.vue'
+import { useUserStore } from './stores/userStore';
 
 export default {
   name: 'App',
+  setup() {
+    const userStore = useUserStore();
+    
+    userStore.initializeSession();
+  },
   components: {
     RouterView,
     Navigation

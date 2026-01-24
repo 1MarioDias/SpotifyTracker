@@ -33,27 +33,42 @@ export default {
           password: this.form.password,
         });
         this.login(userData);
-        this.$router.push('/dashboard');
+        if (userData.isAdmin) {
+          this.$router.push('/admin');
+        } else {
+          this.$router.push('/dashboard');
+        }
       } catch (error) {
         this.error = 'Invalid email or password. Please try again.';
       }
     },
     async handleRegister() {
       this.error = null;
+
       if (this.form.password !== this.form.confirmPassword) {
         this.error = 'Passwords do not match.';
         return;
       }
+
       try {
-        await userService.registerUser({
+        const newUser = {
           username: this.form.username,
           email: this.form.email,
           password: this.form.password,
-          lastfm_username: this.form.lastfm_username
-        });
-        this.toggleView(true);
+          lastfm_username: this.form.lastfm_username,
+          xp: 0,
+          level: 0,
+          crowns: [],
+          isAdmin: false
+        };
+
+        const response = await userService.registerUser(newUser);
+        
+        this.login(response.data);
+        
+        this.$router.push('/dashboard');
       } catch (error) {
-        this.error = 'Registration failed. The email might already be in use.';
+        this.error = 'Registration failed. Please try again.';
       }
     },
     resetForm() {

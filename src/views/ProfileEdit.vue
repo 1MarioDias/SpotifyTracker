@@ -1,5 +1,6 @@
 <script>
 import { mapState } from 'pinia';
+import { mapActions } from 'pinia';
 import { useUserStore } from '../stores/userStore';
 import userService from '../services/userService';
 import Navigation from '../components/Navigation.vue';
@@ -56,6 +57,8 @@ export default {
     this.selectedColor = store.user.vinyl_color || '';
   },
   methods: {
+    ...mapActions(useUserStore, ['updateUserData']),
+
     selectColor(color) {
       this.selectedColor = color;
     },
@@ -63,13 +66,37 @@ export default {
       this.error = null;
       try {
         const updatedData = {};
-        if (this.username) updatedData.username = this.username;
-        if (this.password) updatedData.password = this.password;
-        if (this.lastfm_username) updatedData.lastfm_username = this.lastfm_username;
-        if (this.selectedColor) updatedData.vinyl_color = this.selectedColor; 
-        await userService.updateUser(this.user.id, updatedData);
-        this.$router.push({ name: 'profile' });
+        
+        if (this.username && this.username !== this.user.username) {
+          updatedData.username = this.username;
+        }
+        if (this.password) {
+          updatedData.password = this.password;
+        }
+        if (this.lastfm_username && this.lastfm_username !== this.user.lastfm_username) {
+          updatedData.lastfm_username = this.lastfm_username;
+        }
+        if (this.selectedColor && this.selectedColor !== this.user.vinyl_color) {
+          updatedData.vinyl_color = this.selectedColor;
+        }
+
+        if (Object.keys(updatedData).length === 0) {
+          this.$router.push({ name: 'profile' });
+          return;
+        }
+
+        // atualiza backend + state + localStorage
+        await this.updateUserData(updatedData);
+        
+        this.success = true;
+        
+        // Redireciona após 1 segundo para mostrar mensagem de sucesso
+        setTimeout(() => {
+          this.$router.push({ name: 'profile' });
+        }, 1000);
+
       } catch (error) {
+        console.error('Error updating profile:', error);
         this.error = 'Failed to update profile. Please try again.';
       }
     },
@@ -168,10 +195,23 @@ export default {
             class="w-full px-3 py-2 bg-primary-dark text-text-primary border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-accent-purple"
           />
         </div>
-        <button type="submit" class="bg-accent-pink text-white font-bold py-2 px-6 rounded-md hover:bg-opacity-90 transition-colors w-full">
-          Save Changes
-        </button>
-        <p v-if="error" class="text-red-500 text-xs italic mt-4 text-center">{{ error }}</p>
+        <p v-if="error" class="text-red-500 text-xs italic mt-2">{{ error }}</p>
+
+        <div class="flex gap-4">
+          <button
+            type="submit"
+            class="flex-1 bg-accent-pink text-white font-bold py-2 px-6 rounded-md hover:bg-opacity-90 transition-colors"
+          >
+            Save Changes
+          </button>
+          <button
+            type="button"
+            @click="$router.push({ name: 'profile' })"
+            class="flex-1 bg-gray-600 text-white font-bold py-2 px-6 rounded-md hover:bg-gray-700 transition-colors"
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   </div>

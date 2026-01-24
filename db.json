@@ -52,7 +52,8 @@
         "Humildes",
         "SAFETY TRANCE",
         "Chris Travis"
-      ]
+      ],
+      "vinyl_color": "blue"
     },
     {
       "id": "291c",
@@ -64,7 +65,8 @@
       "level": 0,
       "crowns": [
         "Lana Del Rey"
-      ]
+      ],
+      "vinyl_color": "black"
     },
     {
       "id": "925a",
@@ -96,31 +98,12 @@
     },
     {
       "id": "04c7",
-      "username": "test@test.com",
+      "username": "a",
       "email": "a@a.com",
-      "password": "test123",
+      "password": "a",
       "lastfm_username": "Tobicst",
-      "xp": 660,
-      "level": 3,
-      "crowns": [],
-      "vinyl_color": "purple",
-      "image": "image.png"
-    },
-    {
-      "id": "1",
-      "username": "admin",
-      "email": "admin@admin.com",
-      "password": "admin",
-      "lastfm_username": "admin",
-      "isAdmin": true,
-      "crowns": []
-    },
-    {
-      "id": "0cbd",
-      "username": "tammy",
-      "email": "tammy@tammy.com",
-      "password": "tammy",
-      "lastfm_username": "tammy",
+      "xp": 0,
+      "level": 0,
       "crowns": []
     }
   ],
@@ -131,11 +114,11 @@
       "title": "Discover 5 New Artists",
       "description": "Find and listen to 5 artists I've never heard before this month.",
       "type": "discover_artists",
-      "target": 5,
+      "target": 10,
       "progress": 2,
       "deadline": "2025-12-31",
       "status": "active",
-      "xp": 20,
+      "xp": 15,
       "meta": {}
     },
     {
@@ -154,19 +137,6 @@
       }
     },
     {
-      "id": "3",
-      "userId": "291c",
-      "title": "Earn a Crown",
-      "description": "Become the top listener for at least one artist.",
-      "type": "earn_badges",
-      "target": 1,
-      "progress": 1,
-      "deadline": "2025-12-20",
-      "status": "completed",
-      "xp": 50,
-      "meta": {}
-    },
-    {
       "id": "df3c",
       "title": "Listen to 250 Esdeekid's Tracks",
       "description": "",
@@ -179,6 +149,34 @@
       },
       "userId": "685c",
       "progress": 99,
+      "status": "active"
+    },
+    {
+      "id": "90cf",
+      "title": "aaa",
+      "description": "",
+      "deadline": "2026-02-20",
+      "type": "listen_tracks",
+      "target": 250,
+      "xp": 25,
+      "meta": {
+        "artistName": "fakemink"
+      },
+      "userId": "291c",
+      "progress": 98,
+      "status": "active"
+    },
+    {
+      "id": "0617",
+      "title": "aaaa",
+      "description": "",
+      "deadline": "2026-02-20",
+      "type": "earn_badges",
+      "target": 5,
+      "xp": 20,
+      "meta": {},
+      "userId": "291c",
+      "progress": 1,
       "status": "active"
     }
   ]
