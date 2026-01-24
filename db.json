@@ -96,12 +96,31 @@
     },
     {
       "id": "04c7",
-      "username": "a",
+      "username": "test@test.com",
       "email": "a@a.com",
-      "password": "a",
+      "password": "test123",
       "lastfm_username": "Tobicst",
-      "xp": 0,
-      "level": 0,
+      "xp": 660,
+      "level": 3,
+      "crowns": [],
+      "vinyl_color": "purple",
+      "image": "image.png"
+    },
+    {
+      "id": "1",
+      "username": "admin",
+      "email": "admin@admin.com",
+      "password": "admin",
+      "lastfm_username": "admin",
+      "isAdmin": true,
+      "crowns": []
+    },
+    {
+      "id": "0cbd",
+      "username": "tammy",
+      "email": "tammy@tammy.com",
+      "password": "tammy",
+      "lastfm_username": "tammy",
       "crowns": []
     }
   ],
