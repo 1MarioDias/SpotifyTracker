@@ -30,7 +30,7 @@ export default {
   },
   mounted() {
     if (!this.user || !this.user.lastfm_username) {
-      this.error = 'Could not find Last.fm username. Please log in again.';
+      this.error = 'Could not find Last.fm username. Please update your profile.';
     }
   },
 };

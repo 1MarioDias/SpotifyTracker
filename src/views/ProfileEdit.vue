@@ -61,13 +61,8 @@ export default {
       }
     };
   },
-  async mounted() {
-    const store = useUserStore();
-    if (!store.user) {
-      this.$router.push({ name: 'login' });
-      return;
-    }
-    this.selectedColor = store.user.vinyl_color || '';
+  mounted() {
+    this.selectedColor = this.user?.vinyl_color || '';
   },
   methods: {
     ...mapActions(useUserStore, ['updateUserData']),

@@ -27,14 +27,7 @@ export default {
     email() {
       return this.user?.email ?? 'Not set';
     },
-  },
-  async mounted() {
-    const store = useUserStore();
-    if (!store.user) {
-      this.$router.push({ name: 'login' });
-      return;
-    }
-  },
+  }
 };
 </script>
 
