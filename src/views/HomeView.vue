@@ -1,6 +1,8 @@
+<!-- filepath: /home/mariodias/Development/LTSIW/Ano3/PWEB1/SpotifyTracker/src/views/HomeView.vue -->
 <script>
 import Navigation from '../components/Navigation.vue'
 import LoginButton from '../components/LoginButton.vue'
+import Footer from '../components/Footer.vue'
 import { Music, Target, Grid3X3, Crown, TrendingUp, Zap, Award, Users } from 'lucide-vue-next'
 import ProfileAvatar from '../components/ProfileAvatar.vue';
 
@@ -8,6 +10,7 @@ export default {
   name: 'HomeView',
   components: {
     LoginButton,
+    Footer,
     Music,
     Target,
     Grid3X3,
@@ -93,16 +96,15 @@ export default {
 
     <section class="relative w-full px-4 py-12 lg:py-20">
       <div class="max-w-[1440px] mx-auto flex flex-col items-center">
-        <div class="relative w-full max-w-[600px] lg:max-w-[990px] mb-[-300px] lg:mb-[-400px]">
-  <div class="relative w-full aspect-square drop-shadow-[0_4px_50px_rgba(0,0,0,0.50)]">
-    <ProfileAvatar />
-  </div>
-</div>
-
+        <div class="relative w-full max-w-[600px] lg:max-w-[990px] mb-[-250px] sm:mb-[-300px] lg:mb-[-350px]">
+          <div class="relative w-full aspect-square drop-shadow-[0_4px_50px_rgba(0,0,0,0.50)]">
+            <ProfileAvatar />
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="relative w-full px-4 sm:px-6 lg:px-20 py-12 lg:py-20 bg-primary-light/90 backdrop-blur-sm">
+    <section class="relative w-full px-4 sm:px-6 lg:px-20 pt-[300px] sm:pt-[350px] lg:pt-[400px] pb-12 lg:pb-20 bg-primary-light/90 backdrop-blur-sm">
       <div class="max-w-[1440px] mx-auto">
         <div class="text-center mb-12">
           <h2 class="font-heading text-white text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
@@ -209,7 +211,6 @@ export default {
       </div>
     </section>
 
-    <!-- CTA-->
     <section class="w-full px-4 sm:px-6 lg:px-20 py-16 lg:py-24">
       <div class="max-w-[1440px] mx-auto text-center">
         <div class="bg-gradient-to-br from-accent-pink to-accent-purple p-8 lg:p-12 rounded-2xl">
@@ -224,91 +225,7 @@ export default {
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="w-full px-4 sm:px-6 lg:px-20 py-8 bg-primary-light border-t border-primary-dark">
-      <div class="max-w-[1440px] mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          <div>
-            <img 
-              src="../assets/images/logo.svg" 
-              alt="WUSIK Logo"
-              class="w-32 mb-4"
-            />
-            <p class="text-text-secondary text-sm">
-              A gamified music tracking platform for passionate listeners.
-            </p>
-          </div>
-          <div>
-            <h4 class="font-heading text-white font-bold mb-4">Quick Links</h4>
-            <ul class="space-y-2">
-              <li>
-                <router-link to="/dashboard" class="text-text-secondary hover:text-accent-pink transition-colors text-sm">
-                  Dashboard
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/goals" class="text-text-secondary hover:text-accent-pink transition-colors text-sm">
-                  Goals
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/collages" class="text-text-secondary hover:text-accent-pink transition-colors text-sm">
-                  Collages
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/profile" class="text-text-secondary hover:text-accent-pink transition-colors text-sm">
-                  Profile
-                </router-link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 class="font-heading text-white font-bold mb-4">Resources</h4>
-            <ul class="space-y-2">
-              <li>
-                <a 
-                  href="https://www.last.fm/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  class="text-text-secondary hover:text-accent-pink transition-colors text-sm"
-                >
-                  Last.fm
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="https://developer.spotify.com/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  class="text-text-secondary hover:text-accent-pink transition-colors text-sm"
-                >
-                  Spotify API
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="https://github.com/1MarioDias/SpotifyTracker/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  class="text-text-secondary hover:text-accent-pink transition-colors text-sm"
-                >
-                  GitHub
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="pt-8 border-t border-primary-dark flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p class="text-text-secondary text-sm">
-            © 2025 WUSIK. Made with Vue.js
-          </p>
-          <div class="flex items-center gap-4 text-text-secondary text-sm">
-            <span>Developed by Mário Dias & Diana Teles</span>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <Footer />
   </div>
 </template>
 

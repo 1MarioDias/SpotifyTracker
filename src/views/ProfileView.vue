@@ -4,13 +4,15 @@ import { useUserStore } from '../stores/userStore';
 import Navigation from '../components/Navigation.vue';
 import LevelDisplay from '../components/LevelDisplay.vue';
 import ProfileAvatar from '../components/ProfileAvatar.vue';
+import Footer from '../components/Footer.vue';
 
 export default {
   name: 'Profile',
   components: { 
     Navigation,
     LevelDisplay,
-    ProfileAvatar
+    ProfileAvatar,
+    Footer
   },
   data() {
     return {
@@ -99,5 +101,7 @@ export default {
         </div>
       </div>
     </div>
+
   </div>
+  <Footer />
 </template>

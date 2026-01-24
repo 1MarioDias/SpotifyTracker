@@ -2,6 +2,7 @@
 import { mapState, mapActions } from 'pinia';
 import { useUserStore } from '../stores/userStore';
 import Navigation from '../components/Navigation.vue';
+import Footer from '../components/Footer.vue';
 import { VINYL_COLORS } from '../utils/vinylSystem';
 import { isValidPassword, isValidUsername } from '../utils/validation';
 import userService from '../services/userService';
@@ -12,7 +13,8 @@ export default {
   components: { 
     Navigation,
     Eye,
-    EyeOff
+    EyeOff,
+    Footer
   },
   computed: {
     ...mapState(useUserStore, ['user']),
@@ -272,4 +274,5 @@ export default {
       </form>
     </div>
   </div>
+  <Footer />
 </template>

@@ -4,6 +4,7 @@ import { useUserStore } from '../stores/userStore';
 import RecentTracks from '../components/RecentTracks.vue';
 import TopArtists from '../components/TopArtists.vue';
 import CrownsRun from '../components/CrownsRun.vue';
+import Footer from '../components/Footer.vue';
 import { Music2, AlertCircle } from 'lucide-vue-next';
 
 export default {
@@ -12,6 +13,7 @@ export default {
     RecentTracks,
     TopArtists,
     CrownsRun,
+    Footer,
     Music2,
     AlertCircle
   },
@@ -64,4 +66,5 @@ export default {
       </div>
     </div>
   </div>
+  <Footer />
 </template>
