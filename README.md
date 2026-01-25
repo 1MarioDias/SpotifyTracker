@@ -13,6 +13,8 @@
   <img src="https://img.shields.io/badge/Vite-7.2.2-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
   <img src="https://img.shields.io/badge/Pinia-3.0.4-FFD859?style=for-the-badge&logo=pinia&logoColor=black" alt="Pinia" />
   <img src="https://img.shields.io/badge/Tailwind-3.4.11-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="TailwindCSS" />
+  <img src="https://img.shields.io/badge/GSAP-3.14.2-88CE02?style=for-the-badge&logo=greensock&logoColor=white" alt="GSAP" />
+  <img src="https://img.shields.io/badge/Vitest-4.0.18-6E9F18?style=for-the-badge&logo=vitest&logoColor=white" alt="Vitest" />
 </p>
 
 ---
@@ -114,6 +116,7 @@ Compete with other WUSIK users to become the ultimate fan:
 - **Pinia** - Intuitive state management
 - **Vue Router** - Official routing library
 - **Tailwind CSS** - Utility-first CSS framework
+- **GSAP** - Professional-grade animation library with ScrollTrigger plugin
 
 ### APIs & Services
 - **Last.fm API** - Music metadata and scrobble tracking
@@ -124,6 +127,11 @@ Compete with other WUSIK users to become the ultimate fan:
 - **Axios** - Promise-based HTTP client
 - **html2canvas** - Screenshot functionality for collages
 - **Lucide Vue** - Beautiful icon system
+
+### Testing
+- **Vitest** - Fast unit testing framework
+- **@vue/test-utils** - Official Vue component testing utilities
+- **jsdom** - DOM implementation for Node.js
 
 ---
 
@@ -209,13 +217,46 @@ Compete with other WUSIK users to become the ultimate fan:
 
 ## 🧪 Testing
 
-### Run Tests
+WUSIK uses **Vitest** for fast, modern unit testing with Vue component support.
+
+### Test Configuration
+- **Framework**: Vitest 4.0.18
+- **Environment**: jsdom (browser-like environment)
+- **Test Utils**: @vue/test-utils 2.4.6
+- **Setup File**: `src/components/__tests__/setup.js`
+
+### Running Tests
 ```bash
-npm run test
+# Run all tests
+npm run test:unit
 ```
 
 ### Test Coverage
-Under Construction
+
+#### Components Tested
+
+**1. RecentTracks Component** ([`RecentTracks.spec.js`](src/components/__tests__/RecentTracks.spec.js))
+- ✅ Recent tracks display
+- ✅ Last.fm API integration
+- ✅ Track data rendering (name, artist, album)
+- ✅ Loading state management
+- ✅ Error handling
+- ✅ Empty state handling
+
+**2. GoalForm Component** ([`GoalForm.spec.js`](src/components/__tests__/GoalForm.spec.js))
+- ✅ Form rendering and initialization
+- ✅ Goal creation with Last.fm API integration
+- ✅ Form validation
+- ✅ Router navigation after submission
+
+**3. LoginButton Component** ([`LoginButton.spec.js`](src/components/__tests__/LoginButton.spec.js))
+- ✅ Dashboard/Login prop rendering
+- ✅ Navigation routes after click
+
+### Test Setup
+Global mocks configured in [`setup.js`](src/components/__tests__/setup.js):
+- Vue Router mocks ($router, $route)
+- URL.createObjectURL mock for file handling
 
 ---
 
