@@ -1,3 +1,54 @@
+<script>
+import userService from '../services/userService';
+
+export default {
+  name: 'AdminEditUser',
+  props: {
+    visible: { type: Boolean, required: true },
+    user: { type: Object, required: true }
+  },
+  data() {
+    return {
+      username: this.user.username,
+      password: '',
+      lastfm_username: this.user.lastfm_username || '',
+      error: null
+    };
+  },
+  watch: {
+    user(newUser) {
+      this.username = newUser.username;
+      this.password = '';
+      this.lastfm_username = newUser.lastfm_username || '';
+      this.error = null;
+    }
+  },
+  methods: {
+    async submitUpdate() {
+      this.error = null;
+
+      try {
+        const updatedData = {};
+        if (this.username && this.username !== this.user.username) updatedData.username = this.username;
+        if (this.password) updatedData.password = this.password;
+        if (this.lastfm_username !== this.user.lastfm_username) updatedData.lastfm_username = this.lastfm_username;
+
+        if (Object.keys(updatedData).length === 0) {
+          this.$emit('close');
+          return;
+        }
+
+        await userService.updateUser(this.user.id, updatedData);
+        this.$emit('updated');
+        this.$emit('close');
+      } catch (err) {
+        this.error = 'Failed to update user. Please try again.';
+      }
+    }
+  }
+};
+</script>
+
 <template>
   <div v-if="visible" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
     <div class="bg-primary-light p-8 rounded-lg max-w-md w-full relative">
@@ -55,69 +106,3 @@
     </div>
   </div>
 </template>
-
-<script>
-import userService from '../services/userService';
-import { useUserStore } from '../stores/userStore';
-
-export default {
-  name: 'AdminEditUser',
-  props: {
-    visible: { type: Boolean, required: true },
-    user: { type: Object, required: true }
-  },
-  data() {
-    return {
-      username: this.user.username,
-      password: '',
-      lastfm_username: this.user.lastfm_username || '',
-      error: null,
-      success: false
-    };
-  },
-  watch: {
-    user(newUser) {
-      this.username = newUser.username;
-      this.password = '';
-      this.lastfm_username = newUser.lastfm_username || '';
-      this.error = null;
-      this.success = false;
-    }
-  },
-  methods: {
-    async submitUpdate() {
-      this.error = null;
-      this.success = false;
-
-      try {
-        const updatedData = {};
-        if (this.username && this.username !== this.user.username) updatedData.username = this.username;
-        if (this.password) updatedData.password = this.password;
-        if (this.lastfm_username !== this.user.lastfm_username) updatedData.lastfm_username = this.lastfm_username;
-
-        if (Object.keys(updatedData).length === 0) {
-          this.$emit('close');
-          return;
-        }
-
-        await userService.updateUser(this.user.id, updatedData);
-        
-        // Se o admin está editando o próprio perfil, atualiza a sessão
-        const userStore = useUserStore();
-        if (userStore.user && userStore.user.id === this.user.id) {
-          await userStore.updateUserData(updatedData);
-        }
-        
-        this.success = true;
-        
-        setTimeout(() => {
-          this.$emit('updated');
-          this.$emit('close');
-        }, 1000);
-      } catch (err) {
-        this.error = 'Failed to update user. Please try again.';
-      }
-    }
-  }
-};
-</script>

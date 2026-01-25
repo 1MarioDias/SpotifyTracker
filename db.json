@@ -6,7 +6,7 @@
       "email": "mario@mario.com",
       "password": "passWord1",
       "lastfm_username": "nokiaAngelz2009",
-      "xp": 1050,
+      "xp": 1020,
       "level": 4,
       "crowns": [
         "Bladee",
@@ -17,6 +17,7 @@
         "Deftones",
         "elusin",
         "REDDA",
+        "Destroy Lonely",
         "Izaya Tiji",
         "Black Kray",
         "Drain Gang Archive",
@@ -30,6 +31,8 @@
         "Misfits",
         "Lancey Foux",
         "Lil B",
+        "Ken Carson",
+        "nettspend",
         "UnoTheActivist",
         "2hollis",
         "Aphex Twin",
@@ -44,9 +47,9 @@
         "Basement",
         "Glokk40Spaz",
         "Xandre",
-        "Lily Chou-Chou",
         "UNKI",
         "Bogdan Raczynski",
+        "Lana Del Rey",
         "Kankan",
         "Sematary",
         "Humildes",
@@ -65,9 +68,12 @@
       "xp": 220,
       "level": 1,
       "crowns": [
-        "Lana Del Rey"
+        "Playboi Carti",
+        "Yeat",
+        "Lily Chou-Chou",
+        "A$AP Rocky"
       ],
-      "vinyl_color": "black",
+      "vinyl_color": "purple",
       "isAdmin": false
     },
     {
@@ -78,10 +84,7 @@
       "lastfm_username": "Tobicst",
       "xp": 120,
       "level": 0,
-      "crowns": [
-        "The Cure",
-        "The Smiths"
-      ],
+      "crowns": [],
       "vinyl_color": "black",
       "isAdmin": false
     },
