@@ -1,12 +1,14 @@
 <script>
-import GoalsList from '../components/GoalsList.vue';
 import GoalForm from '../components/GoalForm.vue';
+import GoalsList from '../components/GoalsList.vue';
+import Footer from '../components/Footer.vue';
 
 export default {
   name: 'GoalsView',
   components: {
+    GoalForm,
     GoalsList,
-    GoalForm
+    Footer
   },
   props: {
     action: {
@@ -29,7 +31,7 @@ export default {
       return this.action === 'edit' && this.id;
     }
   }
-}
+};
 </script>
 
 <template>
@@ -39,5 +41,7 @@ export default {
       <GoalForm v-else-if="isCreateView" />
       <GoalForm v-else-if="isEditView" :id="id" />
     </div>
+
   </div>
+  <Footer />
 </template>

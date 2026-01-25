@@ -4,9 +4,9 @@
       "id": "685c",
       "username": "1MarioDias",
       "email": "mario@mario.com",
-      "password": "mario",
+      "password": "passWord1",
       "lastfm_username": "nokiaAngelz2009",
-      "xp": 990,
+      "xp": 1050,
       "level": 4,
       "crowns": [
         "Bladee",
@@ -52,130 +52,175 @@
         "Humildes",
         "SAFETY TRANCE",
         "Chris Travis"
-      ]
+      ],
+      "vinyl_color": "blue",
+      "isAdmin": false
     },
     {
       "id": "291c",
       "username": "sofia",
       "email": "sofia@sofia.com",
-      "password": "sofia",
+      "password": "passWord1",
       "lastfm_username": "cyb3rgrl0",
-      "xp": 0,
-      "level": 0,
+      "xp": 220,
+      "level": 1,
       "crowns": [
         "Lana Del Rey"
-      ]
-    },
-    {
-      "id": "925a",
-      "username": "marco",
-      "email": "marco@marco.com",
-      "password": "marco",
-      "lastfm_username": "vMarc0",
-      "xp": 0,
-      "level": 0,
-      "crowns": [
-        "Destroy Lonely",
-        "A$AP Rocky"
-      ]
-    },
-    {
-      "id": "2446",
-      "username": "teste",
-      "email": "teste@teste.com",
-      "password": "teste",
-      "lastfm_username": "D9ine",
-      "xp": 175,
-      "level": 0,
-      "crowns": [
-        "Playboi Carti",
-        "Yeat",
-        "Ken Carson",
-        "nettspend"
-      ]
+      ],
+      "vinyl_color": "black",
+      "isAdmin": false
     },
     {
       "id": "04c7",
-      "username": "test@test.com",
-      "email": "a@a.com",
-      "password": "test123",
+      "username": "Toby",
+      "email": "toby@toby.com",
+      "password": "passWord1",
       "lastfm_username": "Tobicst",
-      "xp": 660,
-      "level": 3,
-      "crowns": [],
-      "vinyl_color": "purple",
-      "image": "image.png"
+      "xp": 120,
+      "level": 0,
+      "crowns": [
+        "The Cure",
+        "The Smiths"
+      ],
+      "vinyl_color": "black",
+      "isAdmin": false
     },
     {
-      "id": "1",
+      "id": "admin",
       "username": "admin",
       "email": "admin@admin.com",
-      "password": "admin",
-      "lastfm_username": "admin",
-      "isAdmin": true,
-      "crowns": []
-    },
-    {
-      "id": "0cbd",
-      "username": "tammy",
-      "email": "tammy@tammy.com",
-      "password": "tammy",
-      "lastfm_username": "tammy",
-      "crowns": []
+      "password": "passWord1",
+      "lastfm_username": "adminuser",
+      "xp": 0,
+      "level": 0,
+      "crowns": [],
+      "vinyl_color": "gold",
+      "isAdmin": true
     }
   ],
   "goals": [
     {
       "id": "1",
       "userId": "685c",
-      "title": "Discover 5 New Artists",
-      "description": "Find and listen to 5 artists I've never heard before this month.",
-      "type": "discover_artists",
-      "target": 5,
-      "progress": 2,
-      "deadline": "2025-12-31",
-      "status": "active",
-      "xp": 20,
-      "meta": {}
-    },
-    {
-      "id": "2",
-      "userId": "685c",
-      "title": "Listen to 200 tracks by Bladee",
-      "description": "Reach 200 total scrobbles for Bladee.",
+      "title": "Listen to 500 tracks by Bladee",
+      "description": "Reach 500 total scrobbles for Bladee to master his discography.",
       "type": "listen_tracks",
-      "target": 200,
-      "progress": 200,
-      "deadline": "2026-01-15",
+      "target": 500,
+      "progress": 500,
+      "deadline": "2026-03-15",
       "status": "completed",
-      "xp": 25,
+      "xp": 60,
       "meta": {
         "artistName": "Bladee"
       }
     },
     {
       "id": "3",
-      "userId": "291c",
-      "title": "Earn a Crown",
-      "description": "Become the top listener for at least one artist.",
-      "type": "earn_badges",
-      "target": 1,
-      "progress": 1,
-      "deadline": "2025-12-20",
-      "status": "completed",
-      "xp": 50,
+      "userId": "685c",
+      "title": "Discover 10 New Artists",
+      "description": "Explore and listen to 10 artists I've never heard before.",
+      "type": "discover_artists",
+      "target": 10,
+      "progress": 7,
+      "deadline": "2026-02-28",
+      "status": "active",
+      "xp": 15,
       "meta": {}
     },
     {
-      "id": "df3c",
-      "title": "Listen to 250 Esdeekid's Tracks",
-      "description": "",
-      "deadline": "2025-12-12",
+      "id": "4",
+      "userId": "291c",
+      "title": "Listen to 250 tracks by Lana Del Rey",
+      "description": "Reach 250 scrobbles for Lana Del Rey.",
+      "type": "listen_tracks",
+      "target": 250,
+      "progress": 180,
+      "deadline": "2026-04-20",
+      "status": "active",
+      "xp": 25,
+      "meta": {
+        "artistName": "Lana Del Rey"
+      }
+    },
+    {
+      "id": "5",
+      "userId": "291c",
+      "title": "Earn 5 Crowns",
+      "description": "Become the #1 listener for 5 artists.",
+      "type": "earn_badges",
+      "target": 5,
+      "progress": 1,
+      "deadline": "2026-05-10",
+      "status": "active",
+      "xp": 20,
+      "meta": {}
+    },
+    {
+      "id": "6",
+      "userId": "291c",
+      "title": "Discover 5 New Artists",
+      "description": "Find and listen to 5 new artists this quarter.",
+      "type": "discover_artists",
+      "target": 5,
+      "progress": 3,
+      "deadline": "2026-03-31",
+      "status": "active",
+      "xp": 15,
+      "meta": {}
+    },
+    {
+      "id": "7",
+      "userId": "04c7",
+      "title": "Listen to 100 tracks by The Weeknd",
+      "description": "Hit 100 scrobbles for The Weeknd.",
+      "type": "listen_tracks",
+      "target": 100,
+      "progress": 100,
+      "deadline": "2026-02-14",
+      "status": "completed",
+      "xp": 10,
+      "meta": {
+        "artistName": "The Weeknd"
+      }
+    },
+    {
+      "id": "8",
+      "userId": "04c7",
+      "title": "Listen to 250 tracks by Travis Scott",
+      "description": "Reach 250 total plays for Travis Scott.",
+      "type": "listen_tracks",
+      "target": 250,
+      "progress": 95,
+      "deadline": "2026-05-01",
+      "status": "active",
+      "xp": 25,
+      "meta": {
+        "artistName": "Travis Scott"
+      }
+    },
+    {
+      "id": "9",
+      "userId": "04c7",
+      "title": "Earn 5 Crowns",
+      "description": "Be the top listener for 5 different artists.",
+      "type": "earn_badges",
+      "target": 5,
+      "progress": 2,
+      "deadline": "2026-07-01",
+      "status": "active",
+      "xp": 20,
+      "meta": {}
+    },
+    {
+      "id": "af36",
+      "title": "Listen to 250 Esdeekid Tracks",
+      "description": "Listen to 250 Esdeekid Tracks UNTIL XMAS!",
+      "deadline": "2026-12-25",
       "type": "listen_tracks",
       "target": 250,
       "xp": 25,
       "meta": {
-        "artistName": "esdeekid"
+        "artistName": "Esdeekid"
       },
       "userId": "685c",
       "progress": 99,

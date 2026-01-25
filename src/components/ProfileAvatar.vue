@@ -2,10 +2,10 @@
   <div class="relative w-full h-full rounded-full shadow-xl animate-spin [animation-duration:5s]">
     <img
       :src="vinylSrc"
+      :key="vinylSrc"
       alt="Vinyl Decoration"
       class="absolute inset-0 w-full h-full rounded-full object-cover"
     />
-
 
     <div
       v-if="isLoggedIn"
@@ -13,6 +13,7 @@
     >
       <img
         :src="avatarImage"
+        :key="avatarImage"
         alt="Profile Picture"
         class="w-[50%] h-[50%] rounded-full object-cover bg-black"
       />
@@ -35,7 +36,6 @@ export default {
     },
 
     vinylSrc() {
-      
       const file = this.user?.vinyl_color ? `${this.user.vinyl_color}.png` : 'black.png';
       return new URL(`../assets/images/vinyl/${file}`, import.meta.url).href;
     },

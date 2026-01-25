@@ -4,13 +4,15 @@ import { useUserStore } from '../stores/userStore';
 import Navigation from '../components/Navigation.vue';
 import LevelDisplay from '../components/LevelDisplay.vue';
 import ProfileAvatar from '../components/ProfileAvatar.vue';
+import Footer from '../components/Footer.vue';
 
 export default {
   name: 'Profile',
   components: { 
     Navigation,
     LevelDisplay,
-    ProfileAvatar
+    ProfileAvatar,
+    Footer
   },
   data() {
     return {
@@ -25,14 +27,7 @@ export default {
     email() {
       return this.user?.email ?? 'Not set';
     },
-  },
-  async mounted() {
-    const store = useUserStore();
-    if (!store.user) {
-      this.$router.push({ name: 'login' });
-      return;
-    }
-  },
+  }
 };
 </script>
 
@@ -99,5 +94,7 @@ export default {
         </div>
       </div>
     </div>
+
   </div>
+  <Footer />
 </template>

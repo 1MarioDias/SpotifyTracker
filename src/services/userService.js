@@ -40,5 +40,29 @@ export default {
 
   deleteUser(userId) {
     return localApiClient.delete(`/users/${userId}`);
+  },
+
+  async isEmailTaken(email, excludeUserId = null) {
+    const response = await localApiClient.get('/users', {
+      params: { email }
+    });
+    
+    if (excludeUserId) {
+      return response.data.some(user => user.id !== excludeUserId);
+    }
+    
+    return response.data.length > 0;
+  },
+
+  async isUsernameTaken(username, excludeUserId = null) {
+    const response = await localApiClient.get('/users', {
+      params: { username }
+    });
+    
+    if (excludeUserId) {
+      return response.data.some(user => user.id !== excludeUserId);
+    }
+    
+    return response.data.length > 0;
   }
 };

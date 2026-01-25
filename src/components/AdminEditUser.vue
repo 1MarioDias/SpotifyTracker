@@ -43,6 +43,7 @@
         </div>
 
         <p v-if="error" class="text-red-500 text-xs italic mt-2 text-center">{{ error }}</p>
+        <p v-if="success" class="text-green-500 text-xs italic mt-2 text-center">User updated successfully!</p>
 
         <button
           type="submit"
@@ -57,6 +58,7 @@
 
 <script>
 import userService from '../services/userService';
+import { useUserStore } from '../stores/userStore';
 
 export default {
   name: 'AdminEditUser',
@@ -69,7 +71,8 @@ export default {
       username: this.user.username,
       password: '',
       lastfm_username: this.user.lastfm_username || '',
-      error: null
+      error: null,
+      success: false
     };
   },
   watch: {
@@ -78,11 +81,13 @@ export default {
       this.password = '';
       this.lastfm_username = newUser.lastfm_username || '';
       this.error = null;
+      this.success = false;
     }
   },
   methods: {
     async submitUpdate() {
       this.error = null;
+      this.success = false;
 
       try {
         const updatedData = {};
@@ -96,8 +101,19 @@ export default {
         }
 
         await userService.updateUser(this.user.id, updatedData);
-        this.$emit('updated');
-        this.$emit('close');
+        
+        // Se o admin está editando o próprio perfil, atualiza a sessão
+        const userStore = useUserStore();
+        if (userStore.user && userStore.user.id === this.user.id) {
+          await userStore.updateUserData(updatedData);
+        }
+        
+        this.success = true;
+        
+        setTimeout(() => {
+          this.$emit('updated');
+          this.$emit('close');
+        }, 1000);
       } catch (err) {
         this.error = 'Failed to update user. Please try again.';
       }
