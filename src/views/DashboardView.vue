@@ -4,6 +4,7 @@ import { useUserStore } from '../stores/userStore';
 import RecentTracks from '../components/RecentTracks.vue';
 import TopArtists from '../components/TopArtists.vue';
 import CrownsRun from '../components/CrownsRun.vue';
+import VinylShowcase from '../components/VinylShowcase.vue';
 import Footer from '../components/Footer.vue';
 import { Music2, AlertCircle } from 'lucide-vue-next';
 
@@ -13,6 +14,7 @@ export default {
     RecentTracks,
     TopArtists,
     CrownsRun,
+    VinylShowcase,
     Footer,
     Music2,
     AlertCircle
@@ -57,6 +59,10 @@ export default {
 
         <div class="lg:col-span-1">
           <CrownsRun />
+        </div>
+
+        <div class="lg:col-span-1">
+          <VinylShowcase />
         </div>
       </div>
       
