@@ -4,6 +4,8 @@ import { useUserStore } from '../stores/userStore';
 import RecentTracks from '../components/RecentTracks.vue';
 import TopArtists from '../components/TopArtists.vue';
 import CrownsRun from '../components/CrownsRun.vue';
+import VinylShowcase from '../components/VinylShowcase.vue';
+import Footer from '../components/Footer.vue';
 import { Music2, AlertCircle } from 'lucide-vue-next';
 
 export default {
@@ -12,6 +14,8 @@ export default {
     RecentTracks,
     TopArtists,
     CrownsRun,
+    VinylShowcase,
+    Footer,
     Music2,
     AlertCircle
   },
@@ -28,7 +32,7 @@ export default {
   },
   mounted() {
     if (!this.user || !this.user.lastfm_username) {
-      this.error = 'Could not find Last.fm username. Please log in again.';
+      this.error = 'Could not find Last.fm username. Please update your profile.';
     }
   },
 };
@@ -56,6 +60,10 @@ export default {
         <div class="lg:col-span-1">
           <CrownsRun />
         </div>
+
+        <div class="lg:col-span-1">
+          <VinylShowcase />
+        </div>
       </div>
       
       <div v-else class="text-center text-text-secondary flex items-center justify-center gap-2">
@@ -64,4 +72,5 @@ export default {
       </div>
     </div>
   </div>
+  <Footer />
 </template>

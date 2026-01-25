@@ -88,6 +88,7 @@ Showcase your achievements and progress:
   - Level 2: **Music Enthusiast** (400-599 XP) - Medium Orange
   - Level 3: **Audiophile** (600-799 XP) - Golden Yellow
   - Level 4: **Music Legend** (800+ XP) - Turquoise
+- **Level-based Vinyl Badges**: Level up and unlock new vinyl badges
 - **XP Progress Bar**: Visual representation of your journey to the next level
 - **Gradient Badges**: Color-coded level indicators
 - **User Stats**: Display total XP and current level

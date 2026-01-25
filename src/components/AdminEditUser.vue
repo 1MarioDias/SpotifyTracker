@@ -94,6 +94,7 @@ export default {
         </div>
 
         <p v-if="error" class="text-red-500 text-xs italic mt-2 text-center">{{ error }}</p>
+        <p v-if="success" class="text-green-500 text-xs italic mt-2 text-center">User updated successfully!</p>
 
         <button
           type="submit"

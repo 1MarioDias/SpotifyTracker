@@ -1,21 +1,26 @@
 <script>
-import Navigation from '../components/Navigation.vue'
 import LoginButton from '../components/LoginButton.vue'
-import { Music, Target, Grid3X3, Crown, TrendingUp, Zap, Award, Users } from 'lucide-vue-next'
+import Footer from '../components/Footer.vue'
+import { Music, Target, Grid3X3, Crown, TrendingUp, Award, ChevronDown } from 'lucide-vue-next'
 import ProfileAvatar from '../components/ProfileAvatar.vue';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 export default {
   name: 'HomeView',
   components: {
     LoginButton,
+    Footer,
     Music,
     Target,
     Grid3X3,
     Crown,
     TrendingUp,
-    Zap,
     Award,
-    Users,
+    ChevronDown,
     ProfileAvatar
   },
   data() {
@@ -29,27 +34,27 @@ export default {
         },
         {
           icon: 'Crown',
-          title: 'Compete for Crowns',
-          description: 'Battle other users to become the #1 listener for your favorite artists and earn exclusive crowns.',
-          color: 'from-accent-purple to-[#52B69A]'
+          title: 'Crown System',
+          description: 'Compete for artist crowns based on your play counts. Defend your territory and climb the leaderboards.',
+          color: 'from-yellow-400 to-orange-500'
         },
         {
           icon: 'Target',
-          title: 'Set Musical Goals',
-          description: 'Create custom listening goals, track your progress, and earn XP rewards when you complete them.',
-          color: 'from-[#FCA311] to-accent-pink'
+          title: 'Set Goals',
+          description: 'Create custom listening goals and track your progress. Challenge yourself to discover new music.',
+          color: 'from-green-400 to-teal-500'
         },
         {
           icon: 'Grid3X3',
-          title: 'Generate Collages',
-          description: 'Create beautiful visual grids of your top artists or albums and share your unique music taste.',
-          color: 'from-[#52B69A] to-accent-purple'
+          title: 'Create Collages',
+          description: 'Generate beautiful visual collages of your top albums or artists to share with friends.',
+          color: 'from-blue-400 to-purple-500'
         },
         {
           icon: 'TrendingUp',
-          title: 'Level Up System',
-          description: 'Earn XP by completing goals and gaining crowns. Progress through 5 levels from Novice to Music Legend.',
-          color: 'from-accent-pink to-[#FCA311]'
+          title: 'Level Up',
+          description: 'Gain XP as you listen to music and unlock new achievements, badges, and profile customizations.',
+          color: 'from-pink-500 to-red-500'
         },
         {
           icon: 'Award',
@@ -58,259 +63,530 @@ export default {
           color: 'from-accent-purple to-accent-pink'
         }
       ],
-      stats: [
-        { value: '10K+', label: 'Scrobbles Tracked', icon: 'Zap' },
-        { value: '10+', label: 'Active Users', icon: 'Users' },
-        { value: '50+', label: 'Artists Crowned', icon: 'Crown' },
-        { value: '10+', label: 'Goals Completed', icon: 'Target' }
-      ]
+      steps: [
+        { number: '01', title: 'Connect', description: 'Link your Last.fm account during registration to start tracking your music automatically.' },
+        { number: '02', title: 'Listen', description: 'Play your favorite music on Spotify, Apple Music, or any Last.fm-compatible platform.' },
+        { number: '03', title: 'Compete', description: 'Earn XP, unlock achievements, and create beautiful collages to share your music taste.' }
+      ],
+      currentSection: 0
+    }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.initScrollAnimations();
+    });
+  },
+  beforeUnmount() {
+    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+  },
+  methods: {
+    initScrollAnimations() {
+      this.setupHeroAnimations();
+      this.setupVinylSection();
+      this.setupFeaturesSection();
+      this.setupStepsSection();
+      this.setupCTASection();
+      this.setupProgressIndicator();
+    },
+
+    setupHeroAnimations() {
+      const heroTl = gsap.timeline();
+      
+      heroTl
+        .from('.hero-logo', {
+          y: 100,
+          opacity: 0,
+          scale: 0.8,
+          duration: 1.2,
+          ease: 'power4.out'
+        })
+        .from('.hero-title-line', {
+          y: 80,
+          opacity: 0,
+          rotationX: -80,
+          stagger: 0.15,
+          duration: 1,
+          ease: 'power4.out'
+        }, '-=0.6')
+        .from('.hero-subtitle', {
+          y: 40,
+          opacity: 0,
+          duration: 1,
+          ease: 'power3.out'
+        }, '-=0.6')
+        .from('.scroll-indicator', {
+          y: -20,
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power2.out'
+        }, '-=0.2');
+
+      gsap.to('.scroll-indicator', {
+        y: 10,
+        duration: 1.5,
+        repeat: -1,
+        yoyo: true,
+        ease: 'power1.inOut'
+      });
+
+      gsap.to('.hero-bg-gradient', {
+        backgroundPosition: '100% 100%',
+        duration: 15,
+        repeat: -1,
+        yoyo: true,
+        ease: 'none'
+      });
+    },
+
+    setupVinylSection() {
+      const vinylSection = this.$refs.vinylSection;
+      const vinyl = this.$refs.vinylElement;
+
+      gsap.set(vinyl, { rotation: 0 });
+
+      gsap.to(vinyl, {
+        rotation: 360,
+        duration: 20,
+        repeat: -1,
+        ease: 'none'
+      });
+
+      ScrollTrigger.create({
+        trigger: vinylSection,
+        start: 'top top',
+        end: 'bottom top',
+        pin: true,
+        pinSpacing: true,
+        scrub: 1,
+        onUpdate: (self) => {
+          const scale = 1 + (self.progress * 0.5);
+          const opacity = 1 - (self.progress * 0.7);
+          gsap.set(vinyl, { scale, opacity });
+        }
+      });
+
+      gsap.from('.vinyl-text', {
+        scrollTrigger: {
+          trigger: vinylSection,
+          start: 'top center',
+          end: 'center center',
+          scrub: 1
+        },
+        y: 100,
+        opacity: 0,
+        stagger: 0.2
+      });
+
+      gsap.from('.vinyl-overlay', {
+        scrollTrigger: {
+          trigger: vinylSection,
+          start: 'top center',
+          end: 'center center',
+          scrub: 1
+        },
+        opacity: 0
+      });
+    },
+
+    setupFeaturesSection() {
+      const featuresSection = this.$refs.featuresSection;
+      const featureCards = this.$refs.featureCard;
+
+      if (!featureCards) return;
+
+      const cards = Array.isArray(featureCards) ? featureCards : [featureCards];
+
+      ScrollTrigger.create({
+        trigger: featuresSection,
+        start: 'top top',
+        end: `+=${cards.length * 100}%`,
+        pin: true,
+        pinSpacing: true,
+        scrub: 1,
+        onUpdate: (self) => {
+          const cardIndex = Math.floor(self.progress * cards.length);
+          cards.forEach((card, index) => {
+            if (index === cardIndex) {
+              gsap.to(card, {
+                opacity: 1,
+                scale: 1,
+                y: 0,
+                rotationY: 0,
+                duration: 0.3
+              });
+            } else if (index < cardIndex) {
+              gsap.to(card, {
+                opacity: 0.2,
+                scale: 0.85,
+                y: -80,
+                rotationY: -15,
+                duration: 0.3
+              });
+            } else {
+              gsap.to(card, {
+                opacity: 0,
+                scale: 0.7,
+                y: 100,
+                rotationY: 15,
+                duration: 0.3
+              });
+            }
+          });
+        }
+      });
+
+      cards.forEach((card) => {
+        gsap.set(card, { opacity: 0, scale: 0.7, y: 100, rotationY: 15 });
+      });
+      gsap.set(cards[0], { opacity: 1, scale: 1, y: 0, rotationY: 0 });
+    },
+
+    setupStepsSection() {
+      const stepItems = this.$refs.stepItem;
+
+      if (!stepItems) return;
+
+      const items = Array.isArray(stepItems) ? stepItems : [stepItems];
+
+      items.forEach((item, index) => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: item,
+            start: 'top 75%',
+            end: 'bottom 25%',
+            toggleActions: 'play reverse play reverse'
+          }
+        });
+
+        tl.from(item.querySelector('.step-number-display'), {
+          scale: 0,
+          rotation: -180,
+          duration: 0.8,
+          ease: 'back.out(1.7)'
+        })
+        .from(item.querySelector('.step-content'), {
+          x: index % 2 === 0 ? -100 : 100,
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power3.out'
+        }, '-=0.4')
+      });
+    },
+
+    setupCTASection() {
+      const ctaSection = this.$refs.ctaSection;
+
+      gsap.from('.cta-content', {
+        scrollTrigger: {
+          trigger: ctaSection,
+          start: 'top 60%',
+          end: 'center center',
+          scrub: 1
+        },
+        y: 100,
+        opacity: 0,
+        scale: 0.9
+      });
+
+      gsap.from('.cta-particles span', {
+        scrollTrigger: {
+          trigger: ctaSection,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse'
+        },
+        scale: 0,
+        opacity: 0,
+        stagger: {
+          each: 0.05,
+          from: 'random'
+        },
+        duration: 0.5,
+        ease: 'back.out(1.7)'
+      });
+    },
+
+    setupProgressIndicator() {
+      const sections = [
+        this.$refs.heroSection,
+        this.$refs.vinylSection,
+        this.$refs.featuresSection,
+        this.$refs.stepsSection,
+        this.$refs.ctaSection
+      ].filter(Boolean);
+
+      sections.forEach((section, index) => {
+        ScrollTrigger.create({
+          trigger: section,
+          start: 'top center',
+          end: 'bottom center',
+          onEnter: () => { this.currentSection = index; },
+          onEnterBack: () => { this.currentSection = index; }
+        });
+      });
+    },
+
+    scrollToSection(index) {
+      const sections = [
+        this.$refs.heroSection,
+        this.$refs.vinylSection,
+        this.$refs.featuresSection,
+        this.$refs.stepsSection,
+        this.$refs.ctaSection
+      ];
+      
+      if (sections[index]) {
+        gsap.to(window, {
+          scrollTo: { y: sections[index], offsetY: 0 },
+          duration: 1,
+          ease: 'power3.inOut'
+        });
+      }
     }
   }
 }
 </script>
 
 <template>
-  <div class="min-h-screen bg-primary-dark overflow-x-hidden">
-    <Navigation />
+  <div class="home-container bg-primary-dark text-text-primary overflow-x-hidden">
     
-    <section class="w-full px-4 sm:px-6 lg:px-20 py-8 sm:py-12 lg:py-16">
-      <div class="max-w-[1440px] mx-auto text-center">
-        <div class="mb-6 lg:mb-8">
+    <div class="progress-nav fixed right-4 sm:right-8 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-3 sm:gap-4">
+      <button
+        v-for="(_, index) in 5"
+        :key="index"
+        @click="scrollToSection(index)"
+        class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300"
+        :class="currentSection === index 
+          ? 'bg-accent-pink scale-125' 
+          : 'bg-text-secondary/30 hover:bg-text-secondary/60'"
+        :aria-label="`Go to section ${index + 1}`"
+      ></button>
+    </div>
+
+    <section 
+      ref="heroSection"
+      class="hero-section min-h-screen flex flex-col items-center justify-center relative px-4 sm:px-6 lg:px-20 pt-20 sm:pt-0"
+    >
+      <div class="hero-bg-gradient absolute inset-0 bg-gradient-to-br from-primary-dark via-primary-light to-primary-dark bg-[length:200%_200%] bg-[0%_0%]"></div>
+      
+      <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-20 left-10 w-2 h-2 bg-accent-pink rounded-full animate-pulse"></div>
+        <div class="absolute top-40 right-20 w-3 h-3 bg-accent-purple rounded-full animate-pulse delay-300"></div>
+        <div class="absolute bottom-40 left-1/4 w-2 h-2 bg-accent-pink rounded-full animate-pulse delay-500"></div>
+        <div class="absolute bottom-20 right-1/3 w-4 h-4 bg-accent-purple/50 rounded-full animate-pulse delay-700"></div>
+      </div>
+
+      <div class="relative z-10 text-center max-w-5xl mx-auto">
+        <div class="hero-logo mb-6 sm:mb-8 lg:mb-12">
           <img 
             src="../assets/images/logo.svg" 
             alt="WUSIK Logo"
-            class="mx-auto w-48 sm:w-64 lg:w-80"
+            class="mx-auto w-40 sm:w-56 md:w-72 lg:w-96"
           />
         </div>
-        <p class="font-heading text-white text-xl sm:text-2xl lg:text-4xl max-w-4xl mx-auto px-4 mb-4">
-          Track Your Music Like Never Before
-        </p>
-        <p class="text-text-secondary text-sm sm:text-base lg:text-lg max-w-2xl mx-auto px-4 mb-8">
+        
+        <div class="overflow-hidden mb-2 sm:mb-3">
+          <p class="hero-title-line font-heading text-xl sm:text-2xl md:text-3xl lg:text-5xl text-accent-pink">
+            Track Your Music
+          </p>
+        </div>
+        <div class="overflow-hidden mb-6 sm:mb-8">
+          <p class="hero-title-line font-heading text-xl sm:text-2xl md:text-3xl lg:text-5xl text-white">
+            Like Never Before
+          </p>
+        </div>
+        
+        <p class="hero-subtitle text-text-secondary text-base sm:text-lg lg:text-2xl max-w-2xl mx-auto mb-8 sm:mb-10 lg:mb-12 px-4">
           A gamified music tracking platform that turns your listening habits into achievements, crowns, and visual art.
         </p>
       </div>
-    </section>
 
-    <section class="relative w-full px-4 py-12 lg:py-20">
-      <div class="max-w-[1440px] mx-auto flex flex-col items-center">
-        <div class="relative w-full max-w-[600px] lg:max-w-[990px] mb-[-300px] lg:mb-[-400px]">
-  <div class="relative w-full aspect-square drop-shadow-[0_4px_50px_rgba(0,0,0,0.50)]">
-    <ProfileAvatar />
-  </div>
-</div>
-
+      <div class="scroll-indicator absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-text-secondary">
+        <span class="text-xs sm:text-sm uppercase tracking-widest hidden sm:block">Scroll to explore</span>
+        <ChevronDown :size="20" class="sm:w-6 sm:h-6 animate-bounce" />
       </div>
     </section>
 
-    <section class="relative w-full px-4 sm:px-6 lg:px-20 py-12 lg:py-20 bg-primary-light/90 backdrop-blur-sm">
-      <div class="max-w-[1440px] mx-auto">
-        <div class="text-center mb-12">
-          <h2 class="font-heading text-white text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+    <section 
+      ref="vinylSection"
+      class="vinyl-section min-h-screen flex items-center justify-center relative overflow-hidden"
+    >
+      <div 
+        ref="vinylElement"
+        class="absolute w-[180vw] h-[180vw] sm:w-[140vw] sm:h-[140vw] lg:w-[90vw] lg:h-[90vw] max-w-[1400px] max-h-[1400px] opacity-30"
+      >
+        <ProfileAvatar />
+      </div>
+
+      <div class="vinyl-overlay absolute inset-0 bg-gradient-to-b from-primary-dark/60 via-transparent to-primary-dark/80 pointer-events-none"></div>
+
+      <div class="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-6">
+        <h2 class="vinyl-text font-heading text-3xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white mb-4 sm:mb-6 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+          Your Music,
+        </h2>
+        <h2 class="vinyl-text font-heading text-3xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent-pink to-accent-purple mb-6 sm:mb-8 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]" style="filter: drop-shadow(0 2px 10px rgba(0,0,0,0.8));">
+          Visualized
+        </h2>
+        <p class="vinyl-text text-text-secondary text-base sm:text-lg md:text-xl lg:text-2xl max-w-2xl mx-auto bg-primary-dark/60 backdrop-blur-sm px-4 sm:px-6 py-3 sm:py-4 rounded-xl">
+          Watch your listening habits come to life through beautiful visualizations and interactive experiences.
+        </p>
+      </div>
+    </section>
+
+    <section 
+      ref="featuresSection"
+      class="features-section min-h-screen flex items-center justify-center relative bg-primary-light/50 py-16 sm:py-20"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-20 w-full">
+        <div class="text-center mb-12 sm:mb-16">
+          <span class="text-accent-pink text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-4 block">Features</span>
+          <h2 class="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white">
             Everything You Need
           </h2>
-          <p class="text-text-secondary text-base lg:text-lg max-w-2xl mx-auto">
-            Powerful features designed to enhance your music listening experience
-          </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          <div 
-            v-for="(feature, index) in features" 
+        <div class="relative h-[500px] sm:h-[450px] md:h-[400px] flex items-center justify-center">
+          <div
+            v-for="(feature, index) in features"
             :key="index"
-            class="bg-primary-light/90 backdrop-blur-sm p-6 rounded-lg hover:scale-105 transition-transform duration-300 border border-primary-dark hover:border-accent-pink/30"
+            ref="featureCard"
+            class="feature-card absolute w-full max-w-2xl bg-primary-dark/90 backdrop-blur-lg p-6 sm:p-8 md:p-10 lg:p-12 rounded-2xl border border-primary-light"
           >
-            <div class="mb-4">
+            <div class="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
               <div 
-                class="w-12 h-12 rounded-lg flex items-center justify-center"
+                class="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl flex items-center justify-center"
                 :class="`bg-gradient-to-br ${feature.color}`"
               >
-                <component :is="feature.icon" :size="24" class="text-white" />
+                <component :is="feature.icon" :size="28" class="sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
+              </div>
+              <div class="flex-grow">
+                <h3 class="font-heading text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4">
+                  {{ feature.title }}
+                </h3>
+                <p class="text-text-secondary text-sm sm:text-base md:text-lg leading-relaxed">
+                  {{ feature.description }}
+                </p>
               </div>
             </div>
-            <h3 class="font-heading text-white text-xl font-bold mb-3">
-              {{ feature.title }}
-            </h3>
-            <p class="text-text-secondary text-sm leading-relaxed">
-              {{ feature.description }}
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="w-full px-4 sm:px-6 lg:px-20 py-12 lg:py-20">
-      <div class="max-w-[1440px] mx-auto">
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          <div 
-            v-for="(stat, index) in stats" 
-            :key="index"
-            class="text-center p-6 bg-primary-light rounded-lg border border-primary-dark"
-          >
-            <component :is="stat.icon" :size="32" class="mx-auto mb-3 text-accent-pink" />
-            <div class="font-heading text-3xl lg:text-4xl font-bold text-white mb-2">
-              {{ stat.value }}
-            </div>
-            <div class="text-text-secondary text-sm">
-              {{ stat.label }}
+            
+            <div class="mt-6 sm:mt-8 flex items-center gap-2 sm:gap-3 text-accent-pink">
+              <span class="text-xs sm:text-sm font-semibold whitespace-nowrap">{{ index + 1 }} / {{ features.length }}</span>
+              <div class="flex-grow h-1 bg-primary-light rounded-full overflow-hidden">
+                <div 
+                  class="h-full bg-accent-pink rounded-full transition-all duration-300"
+                  :style="{ width: `${((index + 1) / features.length) * 100}%` }"
+                ></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="w-full px-4 sm:px-6 lg:px-20 py-12 lg:py-20 bg-primary-light/30">
-      <div class="max-w-[1440px] mx-auto">
-        <div class="text-center mb-12">
-          <h2 class="font-heading text-white text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+    <section 
+      ref="stepsSection"
+      class="steps-section min-h-screen py-16 sm:py-20 lg:py-32 relative"
+    >
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-20">
+        <div class="text-center mb-16 sm:mb-20">
+          <span class="text-accent-purple text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-4 block">Getting Started</span>
+          <h2 class="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white">
             How It Works
           </h2>
-          <p class="text-text-secondary text-base lg:text-lg">
-            Get started in just a few simple steps
-          </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-          <div class="text-center">
-            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-accent-pink to-accent-purple flex items-center justify-center text-white font-heading text-2xl font-bold mx-auto mb-6">
-              1
+        <div class="relative">
+          <div 
+            v-for="(step, index) in steps"
+            :key="index"
+            ref="stepItem"
+            class="step-item flex flex-col sm:flex-row items-center gap-6 sm:gap-8 lg:gap-16 mb-16 sm:mb-20 lg:mb-32 last:mb-0"
+            :class="index % 2 === 0 ? 'sm:flex-row' : 'sm:flex-row-reverse'"
+          >
+            <div class="step-number-display relative flex-shrink-0">
+              <div class="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 rounded-full bg-gradient-to-br from-accent-pink to-accent-purple flex items-center justify-center">
+                <span class="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white">{{ step.number }}</span>
+              </div>
+              <div 
+                v-if="index < steps.length - 1"
+                class="step-line hidden sm:block absolute left-1/2 -translate-x-1/2 top-full w-1 h-16 sm:h-20 lg:h-32 bg-gradient-to-b from-accent-purple to-transparent origin-top"
+              ></div>
             </div>
-            <h3 class="font-heading text-white text-xl font-bold mb-3">
-              Connect Your Account
-            </h3>
-            <p class="text-text-secondary text-sm">
-              Link your Last.fm account during registration to start tracking your music automatically.
-            </p>
-          </div>
 
-          <div class="text-center">
-            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-accent-purple to-[#52B69A] flex items-center justify-center text-white font-heading text-2xl font-bold mx-auto mb-6">
-              2
+            <div class="step-content flex-grow text-center sm:text-left">
+              <h3 class="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4">
+                {{ step.title }}
+              </h3>
+              <p class="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed max-w-md mx-auto sm:mx-0">
+                {{ step.description }}
+              </p>
             </div>
-            <h3 class="font-heading text-white text-xl font-bold mb-3">
-              Set Your Goals
-            </h3>
-            <p class="text-text-secondary text-sm">
-              Create personalized listening goals and compete with friends for artist crowns.
-            </p>
-          </div>
-
-          <div class="text-center">
-            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#52B69A] to-accent-pink flex items-center justify-center text-white font-heading text-2xl font-bold mx-auto mb-6">
-              3
-            </div>
-            <h3 class="font-heading text-white text-xl font-bold mb-3">
-              Level Up & Share
-            </h3>
-            <p class="text-text-secondary text-sm">
-              Earn XP, unlock achievements, and create beautiful collages to share your music taste.
-            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA-->
-    <section class="w-full px-4 sm:px-6 lg:px-20 py-16 lg:py-24">
-      <div class="max-w-[1440px] mx-auto text-center">
-        <div class="bg-gradient-to-br from-accent-pink to-accent-purple p-8 lg:p-12 rounded-2xl">
-          <h2 class="font-heading text-white text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-            Ready to Start Tracking?
+    <section 
+      ref="ctaSection"
+      class="cta-section min-h-screen flex items-center justify-center relative overflow-hidden py-16 sm:py-20"
+    >
+      <div class="cta-particles absolute inset-0 pointer-events-none">
+        <span v-for="n in 20" :key="n" 
+          class="absolute w-1.5 h-1.5 sm:w-2 sm:h-2 bg-accent-pink/30 rounded-full"
+          :style="{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`
+          }"
+        ></span>
+      </div>
+
+      <div class="cta-content relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
+        <div class="bg-gradient-to-br from-accent-pink/20 to-accent-purple/20 backdrop-blur-lg p-6 sm:p-8 md:p-12 lg:p-20 rounded-3xl border border-accent-pink/20">
+          <h2 class="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 sm:mb-6">
+            Ready to Start <br/>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent-pink to-accent-purple">
+              Tracking?
+            </span>
           </h2>
-          <p class="text-white/90 text-base lg:text-lg mb-8 max-w-2xl mx-auto">
+          
+          <p class="text-text-secondary text-base sm:text-lg md:text-xl lg:text-2xl mb-8 sm:mb-10 lg:mb-12 max-w-2xl mx-auto px-2">
             Join other music lovers who are already tracking, competing, and sharing their musical journey.
           </p>
+
           <LoginButton />
         </div>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="w-full px-4 sm:px-6 lg:px-20 py-8 bg-primary-light border-t border-primary-dark">
-      <div class="max-w-[1440px] mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          <div>
-            <img 
-              src="../assets/images/logo.svg" 
-              alt="WUSIK Logo"
-              class="w-32 mb-4"
-            />
-            <p class="text-text-secondary text-sm">
-              A gamified music tracking platform for passionate listeners.
-            </p>
-          </div>
-          <div>
-            <h4 class="font-heading text-white font-bold mb-4">Quick Links</h4>
-            <ul class="space-y-2">
-              <li>
-                <router-link to="/dashboard" class="text-text-secondary hover:text-accent-pink transition-colors text-sm">
-                  Dashboard
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/goals" class="text-text-secondary hover:text-accent-pink transition-colors text-sm">
-                  Goals
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/collages" class="text-text-secondary hover:text-accent-pink transition-colors text-sm">
-                  Collages
-                </router-link>
-              </li>
-              <li>
-                <router-link to="/profile" class="text-text-secondary hover:text-accent-pink transition-colors text-sm">
-                  Profile
-                </router-link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 class="font-heading text-white font-bold mb-4">Resources</h4>
-            <ul class="space-y-2">
-              <li>
-                <a 
-                  href="https://www.last.fm/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  class="text-text-secondary hover:text-accent-pink transition-colors text-sm"
-                >
-                  Last.fm
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="https://developer.spotify.com/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  class="text-text-secondary hover:text-accent-pink transition-colors text-sm"
-                >
-                  Spotify API
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="https://github.com/1MarioDias/SpotifyTracker/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  class="text-text-secondary hover:text-accent-pink transition-colors text-sm"
-                >
-                  GitHub
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="pt-8 border-t border-primary-dark flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p class="text-text-secondary text-sm">
-            © 2025 WUSIK. Made with Vue.js
-          </p>
-          <div class="flex items-center gap-4 text-text-secondary text-sm">
-            <span>Developed by Mário Dias & Diana Teles</span>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <Footer />
   </div>
 </template>
 
 <style scoped>
+.home-container {
+  scroll-behavior: smooth;
+}
+
+.feature-card {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.delay-300 { animation-delay: 300ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-700 { animation-delay: 700ms; }
+
+@media (max-width: 640px) {
+  .home-container {
+    overflow-x: hidden;
+  }
+}
 </style>

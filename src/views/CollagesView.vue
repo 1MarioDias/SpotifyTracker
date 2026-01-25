@@ -1,10 +1,12 @@
 <script>
 import CollageGenerator from '../components/CollageGenerator.vue';
+import Footer from '../components/Footer.vue';
 
 export default {
   name: 'CollagesView',
   components: {
-    CollageGenerator
+    CollageGenerator,
+    Footer
   }
 };
 </script>
@@ -15,5 +17,7 @@ export default {
       <h1 class="text-3xl sm:text-4xl font-heading font-bold mb-8">Collages</h1>
       <CollageGenerator />
     </div>
+
   </div>
+  <Footer />
 </template>
